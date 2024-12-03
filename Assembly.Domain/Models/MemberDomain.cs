@@ -1,4 +1,5 @@
-﻿using Assembly.Domain.Exceptions;
+﻿using Assembly.Domain.Enums;
+using Assembly.Domain.Exceptions;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -57,13 +58,13 @@ public class MemberDomain
 
     public string? Intressest { get; private set; }
 
-    public ICollection<CyclingssesionDomain> Cyclingssesions { get; private set; } = [];
+    public List<CyclingssesionDomain> Cyclingssesions { get; private set; } = [];
 
-    public ICollection<RunningsessionMainDomain> RunningsessionMains { get; private set; } = [];
+    public List<RunningsessionMainDomain> RunningsessionMains { get; private set; } = [];
 
-    public ICollection<Reservation> Reservations { get; private set; } = [];
+    public List<ReservationDomain> Reservations { get; private set; } = [];
 
-    public ICollection<ProgramDomain> ProgramCodes { get; private set; } = [];
+    public List<ProgramDomain> ProgramCodes { get; private set; } = [];
 
     #endregion
 
@@ -162,14 +163,14 @@ public class MemberDomain
         Cyclingssesions.Remove(session);
     }
 
-    public void AddReservations(Reservation reservation)
+    public void AddReservations(ReservationDomain reservation)
     {
         if (reservation is null) throw new MemberDomainException("Reservation is empty");
         if (Reservations.Contains(reservation)) throw new MemberDomainException("Reservation already added");
         Reservations.Add(reservation);
     }
 
-    public void RemoveReservation(Reservation reservation)
+    public void RemoveReservation(ReservationDomain reservation)
     {
         if (reservation is null) throw new MemberDomainException("Session is empty");
         if (!Reservations.Contains(reservation)) throw new MemberDomainException("Session not found");

@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assembly.Rest", "Assembly.R
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{ED74D006-84DD-4742-87C2-1C0D0CBA89F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTesting", "DomainTesting\DomainTesting.csproj", "{3AD7EB97-6BF5-4589-A29F-CF53CA9061BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainTesting", "DomainTesting\DomainTesting.csproj", "{3AD7EB97-6BF5-4589-A29F-CF53CA9061BE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{488671E7-E109-4F3D-AC8A-80F1049A1AA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly.WPF", "ClientWPF\Assembly.WPF.csproj", "{7045CAFB-CCB7-40CC-9E27-A101109DCCA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +39,17 @@ Global
 		{3AD7EB97-6BF5-4589-A29F-CF53CA9061BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AD7EB97-6BF5-4589-A29F-CF53CA9061BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AD7EB97-6BF5-4589-A29F-CF53CA9061BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7045CAFB-CCB7-40CC-9E27-A101109DCCA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7045CAFB-CCB7-40CC-9E27-A101109DCCA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7045CAFB-CCB7-40CC-9E27-A101109DCCA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7045CAFB-CCB7-40CC-9E27-A101109DCCA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3AD7EB97-6BF5-4589-A29F-CF53CA9061BE} = {ED74D006-84DD-4742-87C2-1C0D0CBA89F6}
+		{7045CAFB-CCB7-40CC-9E27-A101109DCCA5} = {488671E7-E109-4F3D-AC8A-80F1049A1AA5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99B6698D-698D-4B21-B3E8-F0D4E68F7319}

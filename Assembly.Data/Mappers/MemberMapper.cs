@@ -1,5 +1,7 @@
 ﻿using Assembly.Data.Exceptions;
+using Assembly.Data.Exceptions.Mappers;
 using Assembly.Data.Models;
+using Assembly.Domain.Enums;
 using Assembly.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -27,7 +29,20 @@ public static class MemberMapper
     {
         try
         {
-            return new Member() { MemberId = member.Id, FirstName = member.FirstName, LastName = member.LastName, Email = member.Email, Address = member.Address, Birthday = member.Birthday, Interests = member.Intressest, Membertype = member.MemberType.ToString(), Cyclingsessions = (ICollection<Cyclingsession>)member.Cyclingssesions, ProgramCodes = (ICollection<Models.Program>)member.ProgramCodes, Reservations = (ICollection<Models.Reservation>)member.Reservations, RunningsessionMains = (ICollection<Models.RunningsessionMain>)member.RunningsessionMains};
+            return new Member() { 
+                MemberId = member.Id, 
+                FirstName = member.FirstName, 
+                LastName = member.LastName, 
+                Email = member.Email, 
+                Address = member.Address, 
+                Birthday = member.Birthday, 
+                Interests = member.Intressest, 
+                Membertype = member.MemberType.ToString(), 
+                Cyclingsessions = member.Cyclingssesions.Select(CyclingsessionMapper.MapFromDomain).ToList(), 
+                ProgramCodes = member.ProgramCodes.Select(ProgramCodesMapper.MapFromDomain).ToList(),
+                Reservations = member.Reservations.Select(ReservationMapper.MapFromDomain).ToList(), 
+                RunningsessionMains = (ICollection<Models.RunningsessionMain>)member.RunningsessionMains 
+            };
         }
         catch (Exception ex)
         {

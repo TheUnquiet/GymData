@@ -1,13 +1,9 @@
-﻿using Assembly.Domain.Enums;
-
-namespace Assembly.Rest.Dto.Output
+﻿namespace Assembly.Rest.Dto.Input
 {
-    public class MemberOutputDto
+    public class MemberInputDto
     {
-        public int Id { get; set; }
-
         public string FirstName { get; set; } = string.Empty;
-        
+
         public string LastName { get; set; } = string.Empty;
 
         public string Email { get; set; } = string.Empty;
@@ -17,7 +13,5 @@ namespace Assembly.Rest.Dto.Output
         public DateOnly Birthday { get; set; }
 
         public string Intrest { get; set; } = string.Empty;
-
-        public MemberTypeDomain MemberType { get; set; }
     }
 }

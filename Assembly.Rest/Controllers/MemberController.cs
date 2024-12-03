@@ -1,5 +1,7 @@
 ﻿using Assembly.Domain.Managers;
 using Assembly.Domain.Models;
+using Assembly.Rest.Dto.Input;
+using Assembly.Rest.Mappers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +23,8 @@ namespace Assembly.Rest.Controllers
         {
             try
             {
-                return Ok(await manager.GetMembers());
+                var members = await manager.GetMembers();
+                return Ok(members);
             }
             catch (Exception ex)
             {
@@ -40,7 +43,25 @@ namespace Assembly.Rest.Controllers
                     return NotFound();
                 }
 
-                return Ok(member);
+                return Ok(MemberMapper.MapToOutputDto(member));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> PostMember(MemberInputDto memberDto)
+        {
+            try
+            {
+                var memeber = MemberMapper.MapFromInputDto(memberDto);
+
+                //* Save to db
+                await manager.AddMember(memeber);
+
+                return CreatedAtAction(nameof(GetMemberById), new { id = memeber.Id }, memeber);
             }
             catch (Exception ex)
             {

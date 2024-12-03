@@ -26,7 +26,7 @@ namespace Assembly.Domain.Managers
             }
             catch (Exception ex)
             {
-                throw new MemberManagerException("GetMember", ex);
+                throw new MemberManagerException($"GetMember, {ex}");
             }
         }
 
@@ -38,7 +38,19 @@ namespace Assembly.Domain.Managers
             }
             catch (Exception ex)
             {
-                throw new MemberManagerException("GetMembers", ex);
+                throw new MemberManagerException($"GetMember, {ex}");
+            }
+        }
+
+        public async Task AddMember(MemberDomain member)
+        {
+            try
+            {
+                await repo.AddMember(member);
+            }
+            catch (Exception ex)
+            {
+                throw new MemberManagerException($"AddMember, {ex}");
             }
         }
     }

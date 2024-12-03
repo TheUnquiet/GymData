@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assembly.Domain.Models
+namespace Assembly.Domain.Enums
 {
-    public enum MemberTypeDomain
+    public enum TrainingTypeDomain
     {
-        Bronze,
-        Silver,
-        Gold
+        Fun,
+        Endurance,
+        Interval,
+        Recovery
     }
 }

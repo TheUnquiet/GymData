@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assembly.Data.Exceptions
+namespace Assembly.Data.Exceptions.Mappers
 {
     public class MapException : Exception
     {

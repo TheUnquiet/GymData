@@ -1,4 +1,5 @@
-﻿using Assembly.Domain.Exceptions;
+﻿using Assembly.Domain.Enums;
+using Assembly.Domain.Exceptions;
 using Assembly.Domain.Models;
 using System;
 using System.Collections.Generic;
