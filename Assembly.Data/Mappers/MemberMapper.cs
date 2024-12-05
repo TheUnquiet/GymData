@@ -41,7 +41,7 @@ public static class MemberMapper
                 Cyclingsessions = member.Cyclingssesions.Select(CyclingsessionMapper.MapFromDomain).ToList(), 
                 ProgramCodes = member.ProgramCodes.Select(ProgramCodesMapper.MapFromDomain).ToList(),
                 Reservations = member.Reservations.Select(ReservationMapper.MapFromDomain).ToList(), 
-                RunningsessionMains = (ICollection<Models.RunningsessionMain>)member.RunningsessionMains 
+                RunningsessionMains = member.RunningsessionMains.Select(RunningsessionMainMapper.MapFromDomain).ToList(),
             };
         }
         catch (Exception ex)

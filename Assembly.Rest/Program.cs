@@ -19,7 +19,8 @@ namespace Assembly.Rest
             builder.Services.AddSwaggerGen();
 
             // Database
-            var cs = builder.Configuration.GetConnectionString("Default");
+            // var cs = builder.Configuration.GetConnectionString("Default");
+            var cs = builder.Configuration.GetConnectionString("Docker");
             builder.Services.AddDbContext<GymContext>(options => options.UseSqlServer(cs));
 
             // Managers & Repos

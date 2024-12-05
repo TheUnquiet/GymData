@@ -12,11 +12,11 @@ namespace Assembly.Data.Mappers
 {
     public class RunningsessionMainMapper
     {
-        public static MapToDomain()
+        public static RunningsessionMainDomain MapToDomain(RunningsessionMain runningsessionMain)
         {
             try
             {
-                
+                return new RunningsessionMainDomain(runningsessionMain.RunningsessionId, runningsessionMain.Date, runningsessionMain.Duration, runningsessionMain.AvgSpeed, MemberMapper.MapToDomain(runningsessionMain.Member));
             }
             catch (Exception ex)
             {
@@ -24,11 +24,18 @@ namespace Assembly.Data.Mappers
             }
         }
 
-        public static MapFromDomain()
+        public static RunningsessionMain MapFromDomain(RunningsessionMainDomain domain)
         {
             try
             {
-               
+                return new RunningsessionMain()
+                {
+                    RunningsessionId = domain.RunningsessionId,
+                    Date = domain.Date,
+                    Duration = domain.Duration,
+                    AvgSpeed = domain.AvgSpeed,
+                    Member = MemberMapper.MapFromDomain(domain.Member),
+                };
             }
             catch (Exception ex)
             {
