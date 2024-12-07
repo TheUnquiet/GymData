@@ -13,19 +13,20 @@ namespace Assembly.Rest
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             // Database
-            // var cs = builder.Configuration.GetConnectionString("Default");
-            var cs = builder.Configuration.GetConnectionString("Docker");
+            var cs = builder.Configuration.GetConnectionString("Default");
             builder.Services.AddDbContext<GymContext>(options => options.UseSqlServer(cs));
 
-            // Managers & Repos
+            // Repos
             builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+            builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+            // Managers
             builder.Services.AddScoped<MemberManager>();
+            builder.Services.AddScoped<EquipmentManager>();
 
             var app = builder.Build();
 

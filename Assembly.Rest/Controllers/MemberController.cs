@@ -11,11 +11,14 @@ namespace Assembly.Rest.Controllers
     [ApiController]
     public class MemberController : ControllerBase
     {
-        private MemberManager manager;
+        private readonly MemberManager _manager;
+        private readonly ILogger _logger;
 
-        public MemberController(MemberManager manager)
+        public MemberController(MemberManager manager, ILogger<MemberController> logger)
         {
-            this.manager = manager;
+            this._manager = manager;
+            this._logger = logger;
+
         }
 
         [HttpGet]
@@ -23,7 +26,10 @@ namespace Assembly.Rest.Controllers
         {
             try
             {
-                var members = await manager.GetMembers();
+                _logger.LogInformation("Fetching members");
+
+                var members = await _manager.GetMembers();
+
                 return Ok(members);
             }
             catch (Exception ex)
@@ -37,7 +43,10 @@ namespace Assembly.Rest.Controllers
         {
             try
             {
-                var member = await manager.GetMember(id);
+                _logger.LogInformation($"Fetching member {id}");
+
+                var member = await _manager.GetMemberById(id);
+
                 if (member == null)
                 {
                     return NotFound();
@@ -52,16 +61,52 @@ namespace Assembly.Rest.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostMember(MemberInputDto memberDto)
+        public async Task<ActionResult> PostMember([FromBody]MemberInputDto memberDto)
         {
             try
             {
                 var memeber = MemberMapper.MapFromInputDto(memberDto);
 
+                _logger.LogInformation("Saving member");
+
                 //* Save to db
-                await manager.AddMember(memeber);
+                await _manager.AddMember(memeber);
 
                 return CreatedAtAction(nameof(GetMemberById), new { id = memeber.Id }, memeber);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateMember(int id, [FromBody]MemberInputDto memberInputDto)
+        {
+            try
+            {
+                var member = await _manager.GetMemberById(id);
+
+                _manager.UpdateMember(MemberMapper.MapFromInputDto(memberInputDto));
+
+                return CreatedAtAction(nameof(GetMemberById), new { id = member.Id }, member);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMember(int id)
+        {
+            try
+            {
+                var member = await _manager.GetMemberById(id);
+
+                _manager.DeleteMember(id);
+
+                return CreatedAtAction(nameof(GetMemberById), new { id = member.Id }, member);
             }
             catch (Exception ex)
             {

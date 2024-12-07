@@ -8,7 +8,7 @@ namespace Assembly.Domain.Enums
 {
     public enum DeviceTypeDomain
     {
-        Bike,
-        Treadmill
+        bike,
+        treadmill
     }
 }

@@ -11,22 +11,22 @@ namespace Assembly.Domain.Managers
 {
     public class MemberManager
     {
-        private IMemberRepository repo;
+        private readonly IMemberRepository repo;
 
         public MemberManager(IMemberRepository repository)
         {
             repo = repository;
         }
 
-        public async Task<MemberDomain> GetMember(int id)
+        public async Task<MemberDomain> GetMemberById(int id)
         {
             try
             {
-                return await repo.GetMember(id);
+                return await repo.GetMemberById(id);
             }
             catch (Exception ex)
             {
-                throw new MemberManagerException($"GetMember, {ex}");
+                throw new MemberManagerException("GetMember", ex);
             }
         }
 
@@ -38,7 +38,7 @@ namespace Assembly.Domain.Managers
             }
             catch (Exception ex)
             {
-                throw new MemberManagerException($"GetMember, {ex}");
+                throw new MemberManagerException("GetMembers", ex);
             }
         }
 
@@ -50,7 +50,35 @@ namespace Assembly.Domain.Managers
             }
             catch (Exception ex)
             {
-                throw new MemberManagerException($"AddMember, {ex}");
+                throw new MemberManagerException("AddMember", ex);
+            }
+        }
+
+        public async void DeleteMember(int id)
+        {
+            try
+            {
+                var member = await repo.GetMemberById(id);
+                if (member != null)
+                {
+                    repo.DeleteMember(member);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new MemberManagerException("DeleteMember", ex);
+            }
+        }
+
+        public void UpdateMember(MemberDomain member)
+        {
+            try
+            {
+                repo.UpdateMember(member);
+            }
+            catch (Exception ex)
+            {
+                throw new MemberManagerException("UpdateMember", ex);
             }
         }
     }

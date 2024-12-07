@@ -11,7 +11,6 @@ namespace Assembly.Rest.Mappers
         {
             return new MemberOutputDto()
             {
-                Id = member.Id,
                 FirstName = member.FirstName,
                 LastName = member.LastName,
                 Email = member.Email,

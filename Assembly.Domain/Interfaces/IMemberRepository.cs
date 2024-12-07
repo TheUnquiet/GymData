@@ -9,7 +9,7 @@ namespace Assembly.Domain.Interfaces
 {
     public interface IMemberRepository
     {
-        Task<MemberDomain> GetMember(int id);
+        Task<MemberDomain> GetMemberById(int id);
 
         Task<List<MemberDomain>> GetMembers();
 
@@ -17,6 +17,6 @@ namespace Assembly.Domain.Interfaces
 
         void UpdateMember(MemberDomain member);
 
-        Task DeleteMember(int id);
+        void DeleteMember(MemberDomain member);
     }
 }
