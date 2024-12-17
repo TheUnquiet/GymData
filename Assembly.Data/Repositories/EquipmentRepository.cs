@@ -53,7 +53,8 @@ namespace Assembly.Data.Repositories
         {
             try
             {
-                await _context.Equipment.AddAsync(EquipmentMapper.MapFromDomain(equipment));
+                var equipmentDb = EquipmentMapper.MapFromDomain(equipment);
+                await _context.Equipment.AddAsync(equipmentDb);
                 SaveAndClear();
             }
             catch (Exception ex)
@@ -66,7 +67,8 @@ namespace Assembly.Data.Repositories
         {
             try
             {
-                _context.Equipment.Remove(EquipmentMapper.MapFromDomain(equipment));
+                var equipmentDb = EquipmentMapper.MapFromDomain(equipment);
+                _context.Equipment.Remove(equipmentDb);
                 SaveAndClear();
             }
             catch (Exception ex)

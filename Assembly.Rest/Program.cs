@@ -24,9 +24,11 @@ namespace Assembly.Rest
             // Repos
             builder.Services.AddScoped<IMemberRepository, MemberRepository>();
             builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+            builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
             // Managers
             builder.Services.AddScoped<MemberManager>();
             builder.Services.AddScoped<EquipmentManager>();
+            builder.Services.AddScoped<ReservationManager>();
 
             var app = builder.Build();
 

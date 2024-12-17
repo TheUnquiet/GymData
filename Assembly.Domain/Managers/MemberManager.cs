@@ -74,6 +74,7 @@ namespace Assembly.Domain.Managers
         {
             try
             {
+
                 repo.UpdateMember(member);
             }
             catch (Exception ex)

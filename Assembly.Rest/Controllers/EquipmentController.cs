@@ -22,11 +22,13 @@ namespace Assembly.Rest.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<EquipmentDomain>>> GetAll()
+        public async Task<ActionResult<List<EquipmentOutputDto>>> GetAll()
         {
             try
             {
-                return await _manager.GetAll();
+                var equipment = await _manager.GetAll();
+
+                return Ok(equipment.Select(e => EquipmentMapper.MapToOutputDto(e)));
             }
             catch (Exception ex)
             {
