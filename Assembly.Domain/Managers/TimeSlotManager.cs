@@ -18,6 +18,18 @@ namespace Assembly.Domain.Managers
             _repository = repository;
         }
 
+        public async Task<List<TimeSlotDomain>> GetTimeSlots()
+        {
+            try
+            {
+                return await _repository.GetAllTimeSlots();
+            }
+            catch (Exception ex)
+            {
+                throw new TimeSlotManagerException($"GetTimeSlots {ex.Message}");
+            }
+        }
+
         public async Task<TimeSlotDomain> GetTimeSlot(int slotId)
         {
             try

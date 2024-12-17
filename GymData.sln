@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainTesting", "DomainTest
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{488671E7-E109-4F3D-AC8A-80F1049A1AA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly.WPF", "ClientWPF\Assembly.WPF.csproj", "{7045CAFB-CCB7-40CC-9E27-A101109DCCA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assembly.WPF", "ClientWPF\Assembly.WPF.csproj", "{7045CAFB-CCB7-40CC-9E27-A101109DCCA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

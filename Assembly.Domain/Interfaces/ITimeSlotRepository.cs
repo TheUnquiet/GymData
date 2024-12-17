@@ -10,5 +10,6 @@ namespace Assembly.Domain.Interfaces
     public interface ITimeSlotRepository
     {
         Task<TimeSlotDomain> GetTimeSlot(int slotId);
+        Task<List<TimeSlotDomain>> GetAllTimeSlots();
     }
 }

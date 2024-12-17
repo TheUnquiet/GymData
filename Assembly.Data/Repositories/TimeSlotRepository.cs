@@ -21,6 +21,18 @@ namespace Assembly.Data.Repositories
             _context = context;
         }
 
+        public async Task<List<TimeSlotDomain>> GetAllTimeSlots()
+        {
+            try
+            {
+                return await _context.TimeSlots.Select(t => TimeSlotMapper.MapToDomain(t)).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new TimeSlotRepositoryException($"GetAllTimeSlots {ex.Message}");
+            }
+        }
+
         public async Task<TimeSlotDomain> GetTimeSlot(int slotId)
         {
             try
