@@ -1,6 +1,5 @@
 ﻿using Assembly.Data.Exceptions.Mappers;
 using Assembly.Data.Models;
-using Assembly.Domain.Enums;
 using Assembly.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ namespace Assembly.Data.Mappers
         {
             try
             {
-                return new TimeSlotDomain(timeSlot.TimeSlotId, timeSlot.StartTime, timeSlot.EndTime, (PartOfDayDomain)Enum.Parse(typeof(PartOfDayDomain), timeSlot.PartOfDay));
+                return new TimeSlotDomain(timeSlot.TimeSlotId, timeSlot.StartTime, timeSlot.EndTime, timeSlot.PartOfDay);
             }
             catch (Exception ex)
             {
@@ -33,7 +32,7 @@ namespace Assembly.Data.Mappers
                     TimeSlotId = domain.TimeSlotId,
                     StartTime = domain.StartTime,
                     EndTime = domain.EndTime,
-                    PartOfDay = domain.PartOfDay.ToString()
+                    PartOfDay = domain.PartOfDay
                 };
             }
             catch (Exception ex)

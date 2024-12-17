@@ -1,5 +1,4 @@
-﻿using Assembly.Domain.Enums;
-using Assembly.Domain.Exceptions;
+﻿using Assembly.Domain.Exceptions;
 
 namespace Assembly.Domain.Models
 {
@@ -11,7 +10,7 @@ namespace Assembly.Domain.Models
         {
         }
 
-        public CyclingssesionDomain(int cyclingsessionId, DateTime date, int duration, int avgWatt, int maxWatt, int avgCadence, int maxCadence, TrainingTypeDomain trainingtype, string? comment, MemberDomain member)
+        public CyclingssesionDomain(int cyclingsessionId, DateTime date, int duration, int avgWatt, int maxWatt, int avgCadence, int maxCadence, string trainingtype, string? comment, MemberDomain member)
         {
             SetId(cyclingsessionId);
             SetDate(date);
@@ -25,7 +24,7 @@ namespace Assembly.Domain.Models
             SetMember(member);
         }
 
-        public CyclingssesionDomain(DateTime date, int duration, int avgWatt, int maxWatt, int avgCadence, int maxCadence, TrainingTypeDomain trainingtype, string? comment, MemberDomain member)
+        public CyclingssesionDomain(DateTime date, int duration, int avgWatt, int maxWatt, int avgCadence, int maxCadence, string trainingtype, string? comment, MemberDomain member)
         {
             Date = date;
             Duration = duration;
@@ -56,7 +55,7 @@ namespace Assembly.Domain.Models
 
         public int MaxCadence { get; set; }
 
-        public TrainingTypeDomain Trainingtype { get; set; }
+        public string Trainingtype { get; set; } = "";
 
         public string? Comment { get; set; }
 
@@ -143,7 +142,7 @@ namespace Assembly.Domain.Models
             MaxCadence = maxCadence;
         }
 
-        public void SetTrainingsType(TrainingTypeDomain trainingType)
+        public void SetTrainingsType(string trainingType)
         {
             Trainingtype = trainingType;
         }

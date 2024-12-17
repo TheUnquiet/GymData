@@ -1,7 +1,6 @@
 ﻿using Assembly.Data.Exceptions;
 using Assembly.Data.Exceptions.Mappers;
 using Assembly.Data.Models;
-using Assembly.Domain.Enums;
 using Assembly.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,7 @@ namespace Assembly.Data.Mappers
         {
             try
             {
-                return new CyclingssesionDomain(session.CyclingsessionId, session.Date, session.Duration, session.AvgWatt, session.MaxWatt, session.AvgCadence, session.MaxCadence, (TrainingTypeDomain)Enum.Parse(typeof(TrainingTypeDomain), session.Trainingtype), session.Comment, MemberMapper.MapToDomain(session.Member));
+                return new CyclingssesionDomain(session.CyclingsessionId, session.Date, session.Duration, session.AvgWatt, session.MaxWatt, session.AvgCadence, session.MaxCadence, session.Trainingtype, session.Comment, MemberMapper.MapToDomain(session.Member));
             }
             catch (Exception ex)
             {
@@ -39,7 +38,7 @@ namespace Assembly.Data.Mappers
                     MaxWatt = session.MaxWatt,
                     AvgCadence = session.AvgCadence,
                     MaxCadence = session.MaxCadence,
-                    Trainingtype = session.Trainingtype.ToString(),
+                    Trainingtype = session.Trainingtype,
                     Comment = session.Comment,
                     Member = MemberMapper.MapFromDomain(session.Member),
                 };

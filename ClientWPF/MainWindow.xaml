@@ -6,31 +6,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Margin="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <TextBlock Text="Date (yyyy-MM-dd):" Grid.Row="0" Margin="0,0,0,5"/>
-        <TextBox x:Name="DateTextBox" Grid.Row="0" Margin="120,0,0,5" Width="200"/>
-
-        <TextBlock Text="Equipment:" Grid.Row="1" Margin="0,0,0,5"/>
-        <ComboBox x:Name="EquipmentComboBox" Grid.Row="1" Margin="120,0,0,5" Width="200"/>
-
-        <TextBlock Text="Member ID:" Grid.Row="2" Margin="0,0,0,5"/>
-        <TextBox x:Name="MemberIdTextBox" Grid.Row="2" Margin="120,0,0,5" Width="200"/>
-
-        <TextBlock Text="Time Slot ID:" Grid.Row="3" Margin="0,0,0,5"/>
-        <ComboBox x:Name="TimeSlotComboBox" Grid.Row="3" Margin="120,0,0,5" Width="200"/>
-
-        <Button Content="Submit Reservation" Grid.Row="4" Margin="0,10,0,0" Width="200"
-                HorizontalAlignment="Left" Click="SubmitReservation_Click"/>
-
-        <TextBlock x:Name="StatusTextBlock" Grid.Row="5" Foreground="Green" TextWrapping="Wrap" Margin="0,20,0,0"/>
-
+        <Grid>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center" Text="Gym data" FontSize="16" Margin="10"/>
+                <Button Name="CenteredButton" Content="Add reservation" Margin="10" Click="AddReservationButtonClick"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

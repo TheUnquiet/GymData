@@ -1,5 +1,4 @@
-﻿using Assembly.Domain.Enums;
-using Assembly.Domain.Models;
+﻿using Assembly.Domain.Models;
 using Assembly.Rest.Dto.Input;
 using Assembly.Rest.Dto.Output;
 
@@ -23,7 +22,7 @@ namespace Assembly.Rest.Mappers
 
         public static MemberDomain MapFromInputDto(MemberInputDto dto)
         {
-            return new MemberDomain(dto.FirstName, dto.LastName, dto.Email, dto.Address, dto.Birthday, dto.Intrest, MemberTypeDomain.Bronze);
+            return new MemberDomain(dto.FirstName, dto.LastName, dto.Email, dto.Address, dto.Birthday, dto.Intrest, "Bronze");
         }
     }
 }

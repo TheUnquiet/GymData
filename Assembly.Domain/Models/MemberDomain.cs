@@ -1,5 +1,4 @@
-﻿using Assembly.Domain.Enums;
-using Assembly.Domain.Exceptions;
+﻿using Assembly.Domain.Exceptions;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ public class MemberDomain
 {
     #region Constructors
 
-    public MemberDomain(string firstName, string lastName, string email, string address, DateOnly birthday, string intrest, MemberTypeDomain memberType)
+    public MemberDomain(string firstName, string lastName, string email, string address, DateOnly birthday, string intrest, string memberType)
     {
         SetFirstName(firstName);
         SetLastName(lastName);
@@ -26,7 +25,7 @@ public class MemberDomain
         SetMemberType(memberType);
     }
 
-    public MemberDomain(int id, string firstName, string lastName, string email, string address, DateOnly birthday, string intrest, MemberTypeDomain memberType)
+    public MemberDomain(int id, string firstName, string lastName, string email, string address, DateOnly birthday, string intrest, string memberType)
     {
         SetId(id);
         SetFirstName(firstName);
@@ -54,7 +53,7 @@ public class MemberDomain
 
     public DateOnly Birthday { get; private set; }
 
-    public MemberTypeDomain MemberType { get; private set; }
+    public string MemberType { get; private set; } = "";
 
     public string? Intressest { get; private set; }
 
@@ -144,7 +143,7 @@ public class MemberDomain
         Intressest = intrest;
     }
 
-    public void SetMemberType(MemberTypeDomain memberType)
+    public void SetMemberType(string memberType)
     {
         MemberType = memberType;
     }

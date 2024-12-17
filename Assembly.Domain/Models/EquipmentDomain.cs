@@ -1,5 +1,4 @@
-﻿using Assembly.Domain.Enums;
-using Assembly.Domain.Exceptions;
+﻿using Assembly.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +11,13 @@ namespace Assembly.Domain.Models
     {
         #region Constructor
 
-        public EquipmentDomain(int equipmentId, DeviceTypeDomain deviceType)
+        public EquipmentDomain(int equipmentId, string deviceType)
         {
             SetId(equipmentId);
             SetDeviceType(deviceType);
         }
 
-        public EquipmentDomain(DeviceTypeDomain deviceType)
+        public EquipmentDomain(string deviceType)
         {
             SetDeviceType(deviceType);
         }
@@ -29,7 +28,7 @@ namespace Assembly.Domain.Models
 
         public int EquipmentId { get; set; }
 
-        public DeviceTypeDomain DeviceType { get; set; }
+        public string DeviceType { get; set; } = "";
 
         public virtual List<ReservationDomain> Reservations { get; set; } = new List<ReservationDomain>();
 
@@ -49,7 +48,7 @@ namespace Assembly.Domain.Models
             EquipmentId = id;
         }
 
-        public void SetDeviceType(DeviceTypeDomain deviceType)
+        public void SetDeviceType(string deviceType)
         {
             DeviceType = deviceType;
         }

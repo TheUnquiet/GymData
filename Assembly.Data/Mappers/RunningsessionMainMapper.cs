@@ -1,6 +1,5 @@
 ﻿using Assembly.Data.Exceptions.Mappers;
 using Assembly.Data.Models;
-using Assembly.Domain.Enums;
 using Assembly.Domain.Models;
 using System;
 using System.Collections.Generic;

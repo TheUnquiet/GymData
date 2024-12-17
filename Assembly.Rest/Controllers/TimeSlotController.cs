@@ -1,5 +1,7 @@
 ﻿using Assembly.Domain.Managers;
 using Assembly.Domain.Models;
+using Assembly.Rest.Dto.Output;
+using Assembly.Rest.Mappers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +19,12 @@ namespace Assembly.Rest.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TimeSlotDomain>>> GetAll()
+        public async Task<ActionResult<List<TimeSlotOutputDto>>> GetAll()
         {
             try
             {
-                return await _manager.GetTimeSlots();
+                var timeSlots = await _manager.GetTimeSlots();
+                return timeSlots.Select(t => TimeSlotMapper.MapToOuputDto(t)).ToList();
             }
             catch (Exception ex)
             {
@@ -30,11 +33,12 @@ namespace Assembly.Rest.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TimeSlotDomain>> GetTimeSlot(int id)
+        public async Task<ActionResult<TimeSlotOutputDto>> GetTimeSlot(int id)
         {
             try
             {
-                return await _manager.GetTimeSlot(id);
+                var timeSlot = await _manager.GetTimeSlot(id);
+                return TimeSlotMapper.MapToOuputDto(timeSlot);
             }
             catch (Exception ex)
             {

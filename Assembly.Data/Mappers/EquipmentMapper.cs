@@ -1,6 +1,5 @@
 ﻿using Assembly.Data.Exceptions.Mappers;
 using Assembly.Data.Models;
-using Assembly.Domain.Enums;
 using Assembly.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ namespace Assembly.Data.Mappers
         {
             try
             {
-                return new EquipmentDomain(equipment.EquipmentId, (DeviceTypeDomain)Enum.Parse(typeof(DeviceTypeDomain), equipment.DeviceType));
+                return new EquipmentDomain(equipment.EquipmentId, equipment.DeviceType);
             }
             catch (Exception ex)
             {

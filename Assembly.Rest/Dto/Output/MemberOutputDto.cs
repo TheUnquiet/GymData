@@ -1,6 +1,4 @@
-﻿using Assembly.Domain.Enums;
-
-namespace Assembly.Rest.Dto.Output
+﻿namespace Assembly.Rest.Dto.Output
 {
     public class MemberOutputDto
     {
@@ -16,6 +14,6 @@ namespace Assembly.Rest.Dto.Output
 
         public string Intrest { get; set; } = string.Empty;
 
-        public MemberTypeDomain MemberType { get; set; }
+        public string MemberType { get; set; } = "";
     }
 }

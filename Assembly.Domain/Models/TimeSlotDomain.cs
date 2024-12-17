@@ -1,5 +1,4 @@
-﻿using Assembly.Domain.Enums;
-using Assembly.Domain.Exceptions;
+﻿using Assembly.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,7 @@ namespace Assembly.Domain.Models
     {
         #region Constructors
 
-        public TimeSlotDomain(int timeSlotId, int startTime, int endTime, PartOfDayDomain partOfDay)
+        public TimeSlotDomain(int timeSlotId, int startTime, int endTime,string partOfDay)
         {
             SetId(timeSlotId); 
             SetStartTime(startTime);
@@ -20,7 +19,7 @@ namespace Assembly.Domain.Models
             SetPartOfDay(partOfDay);
         }
 
-        public TimeSlotDomain(int startTime, int endTime, PartOfDayDomain partOfDay)
+        public TimeSlotDomain(int startTime, int endTime, string partOfDay)
         {
             SetStartTime(startTime);
             SetEndTime(endTime);
@@ -37,7 +36,7 @@ namespace Assembly.Domain.Models
 
         public int EndTime { get; set; }
 
-        public PartOfDayDomain PartOfDay { get; set; }
+        public string PartOfDay { get; set; } = "";
 
         public List<ReservationDomain> Reservations { get; set; } = [];
 
@@ -81,7 +80,7 @@ namespace Assembly.Domain.Models
             EndTime = end;
         }
 
-        public void SetPartOfDay(PartOfDayDomain partOfDay)
+        public void SetPartOfDay(string partOfDay)
         {
             PartOfDay = partOfDay;
         }

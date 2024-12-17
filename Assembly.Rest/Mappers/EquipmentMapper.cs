@@ -15,6 +15,7 @@ namespace Assembly.Rest.Mappers
         {
             return new EquipmentOutputDto()
             {
+                Id = domain.EquipmentId,
                 DeviceType = domain.DeviceType,
             };
         }
