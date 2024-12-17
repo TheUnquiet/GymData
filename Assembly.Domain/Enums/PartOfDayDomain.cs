@@ -8,8 +8,8 @@ namespace Assembly.Domain.Enums
 {
     public enum PartOfDayDomain
     {
-        Morning,
-        AfterNoon,
-        Evening
+        morning,
+        afterNoon,
+        evening
     }
 }

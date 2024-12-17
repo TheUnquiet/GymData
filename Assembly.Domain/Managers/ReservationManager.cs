@@ -13,14 +13,10 @@ namespace Assembly.Domain.Managers
     public class ReservationManager
     {
         private readonly IReservationRepository _reservationRepository;
-        private readonly IEquipmentRepository _equipmentRepository;
-        private readonly IMemberRepository _memberRepository;
 
-        public ReservationManager(IReservationRepository repo, IEquipmentRepository equipmentRepository, IMemberRepository memberRepository)
+        public ReservationManager(IReservationRepository repo)
         {
             _reservationRepository = repo;
-            _equipmentRepository = equipmentRepository;
-            _memberRepository = memberRepository;
         }
 
         public async Task<List<ReservationDomain>> GetAll()

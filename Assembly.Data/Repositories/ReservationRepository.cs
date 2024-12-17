@@ -38,7 +38,13 @@ namespace Assembly.Data.Repositories
         {
             try
             {
-                var reservation = await _context.Reservations.Where(r => r.ReservationId == id).AsNoTracking().FirstOrDefaultAsync();
+                var reservation = await _context.Reservations
+                    .Include(r => r.TimeSlot)
+                    .Include(r => r.Member)
+                    .Include(r => r.Equipment)
+                    .Where(r => r.ReservationId == id)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
 
                 if (reservation != null) return ReservationMapper.MapToDomain(reservation);
 
@@ -69,6 +75,7 @@ namespace Assembly.Data.Repositories
             try
             {
                 var reservationDb = ReservationMapper.MapFromDomain(reservation);
+                    
                 _context.Reservations.Update(reservationDb);
                 SaveAndClear();
             }

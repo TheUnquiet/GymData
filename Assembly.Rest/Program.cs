@@ -25,10 +25,13 @@ namespace Assembly.Rest
             builder.Services.AddScoped<IMemberRepository, MemberRepository>();
             builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
             builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+            builder.Services.AddScoped<ITimeSlotRepository, TimeSlotRepository>();
+
             // Managers
             builder.Services.AddScoped<MemberManager>();
             builder.Services.AddScoped<EquipmentManager>();
             builder.Services.AddScoped<ReservationManager>();
+            builder.Services.AddScoped<TimeSlotManager>();
 
             var app = builder.Build();
 

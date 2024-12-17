@@ -32,6 +32,9 @@ namespace Assembly.Data.Mappers
                 {
                     ReservationId = domain.ReservationId,
                     Date = domain.Date,
+                    EquipmentId = domain.Equipment.EquipmentId,
+                    MemberId = domain.Member.Id,
+                    TimeSlotId = domain.TimeSlot.TimeSlotId
                 };
             }
             catch (Exception ex)

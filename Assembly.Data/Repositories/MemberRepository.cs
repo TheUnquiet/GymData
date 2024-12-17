@@ -38,7 +38,7 @@ public class MemberRepository : IMemberRepository
     {
         try
         {
-            var member = await _context.Members.FindAsync(id);
+            var member = await _context.Members.Where(m => m.MemberId == id).AsNoTracking().FirstOrDefaultAsync();
 
             if (member != null) return MemberMapper.MapToDomain(member);
 
