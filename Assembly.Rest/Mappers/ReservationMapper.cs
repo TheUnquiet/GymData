@@ -11,6 +11,7 @@ namespace Assembly.Rest.Mappers
             return new ReservationOutputDto()
             {
                 Date = reservation.Date,
+                Equipment = EquipmentMapper.MapToOutputDto(reservation.Equipment),
                 Member = MemberMapper.MapToOutputDto(reservation.Member),
             };
         }

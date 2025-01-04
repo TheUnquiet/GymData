@@ -26,7 +26,7 @@ namespace Assembly.Data.Repositories
         {
             try
             {
-                return await _context.Reservation.Select(r => ReservationMapper.MapToDomain(r)).ToListAsync();
+                return await _context.Reservations.Select(r => ReservationMapper.MapToDomain(r)).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -38,25 +38,17 @@ namespace Assembly.Data.Repositories
         {
             try
             {
-                var reservation = await _context.Reservation
-                    .Include(r => r.TimeSlots)
-                    .Include(r => r.Equipment)
+                var reservation = await _context.Reservations
+                    .Include(r => r.TimeSlot)
                     .Include(r => r.Member)
+                    .Include(r => r.Equipment)
                     .Where(r => r.ReservationId == id)
                     .AsNoTracking()
                     .FirstOrDefaultAsync();
 
-                // Check if reservation is found
-                if (reservation != null)
-                {
-                    // Map to the domain model and return
-                    return ReservationMapper.MapToDomain(reservation);
-                }
-                else
-                {
-                    // If not found, throw custom exception
-                    throw new ReservationRepositoryException("Reservation not found");
-                }
+                if (reservation != null) return ReservationMapper.MapToDomain(reservation);
+
+                else throw new ReservationRepositoryException("Reservation empty");
             }
             catch (Exception ex)
             {
@@ -69,7 +61,7 @@ namespace Assembly.Data.Repositories
             try
             {
                 var reservationDb = ReservationMapper.MapFromDomain(reservation);
-                await _context.Reservation.AddAsync(reservationDb);
+                await _context.Reservations.AddAsync(reservationDb);
                 SaveAndClear();
             }
             catch (Exception ex)
@@ -84,7 +76,7 @@ namespace Assembly.Data.Repositories
             {
                 var reservationDb = ReservationMapper.MapFromDomain(reservation);
                     
-                _context.Reservation.Update(reservationDb);
+                _context.Reservations.Update(reservationDb);
                 SaveAndClear();
             }
             catch (Exception ex)
@@ -98,7 +90,7 @@ namespace Assembly.Data.Repositories
             try
             {
                 var reservationDb = ReservationMapper.MapFromDomain(reservation);
-                _context.Reservation.Remove(reservationDb);
+                _context.Reservations.Remove(reservationDb);
                 SaveAndClear();
             }
             catch (Exception ex)

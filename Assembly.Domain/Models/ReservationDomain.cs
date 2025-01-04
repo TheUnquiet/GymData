@@ -6,36 +6,21 @@ namespace Assembly.Domain.Models
     {
         #region Constructors
 
-        public ReservationDomain(int reservationId, DateOnly date, MemberDomain member, List<TimeSlotDomain> timeSlots, List<EquipmentDomain> equipment)
+        public ReservationDomain(int reservationId, DateOnly date, EquipmentDomain equipment, MemberDomain member, TimeSlotDomain timeSlot)
         {
             SetId(reservationId); 
             SetDate(date);
+            SetEquipment(equipment);
             SetMember(member);
-
-            foreach (var slot in timeSlots)
-            {
-                AddTimeSlot(slot);
-            }
-
-            foreach (var e in equipment)
-            {
-                AddEquipment(e);
-            }
+            SetTimeSlot(timeSlot);
         }
 
-        public ReservationDomain(DateOnly date, MemberDomain member, List<TimeSlotDomain> timeSlots, List<EquipmentDomain> equipment)
+        public ReservationDomain(DateOnly date, EquipmentDomain equipment, MemberDomain member, TimeSlotDomain timeSlot)
         {
             SetDate(date);
+            SetEquipment(equipment);
             SetMember(member);
-            foreach (var slot in timeSlots)
-            {
-                AddTimeSlot(slot);
-            }
-
-            foreach (var e in equipment)
-            {
-                AddEquipment(e);
-            }
+            SetTimeSlot(timeSlot);
         }
 
         #endregion
@@ -46,11 +31,11 @@ namespace Assembly.Domain.Models
 
         public DateOnly Date { get; set; }
 
+        public EquipmentDomain Equipment { get; set; } = null!;
+
         public MemberDomain Member { get; set; } = null!;
 
-        public List<TimeSlotDomain> TimeSlots { get; } = [];
-
-        public List<EquipmentDomain> Equipment { get; } = [];
+        public TimeSlotDomain TimeSlot { get; set; } = null!;
 
         #endregion
 
@@ -71,11 +56,13 @@ namespace Assembly.Domain.Models
         public void SetDate(DateOnly date)
         {
             Date = date;
+        }
 
-            if (date > DateOnly.FromDateTime(DateTime.Now).AddDays(7))
-            {
-                throw new ReservationDomainException($"Date out of bounds");
-            }
+        public void SetEquipment(EquipmentDomain equipment)
+        {
+            if (equipment == null) throw new ReservationDomainException("Equipment is empty");
+            if (equipment == Equipment) throw new ReservationDomainException("Equipment already set");
+            Equipment = equipment;
         }
 
         public void SetMember(MemberDomain member)
@@ -85,18 +72,11 @@ namespace Assembly.Domain.Models
             Member = member;
         }
 
-        public void AddEquipment(EquipmentDomain equipment)
+        public void SetTimeSlot(TimeSlotDomain timeSlot)
         {
-            if (equipment == null) throw new ReservationDomainException($"Equipment empty");
-            if (Equipment.Contains(equipment)) throw new ReservationDomainException($"Equipment already added");
-            Equipment.Add(equipment);
-        }
-
-        public void AddTimeSlot(TimeSlotDomain timeSlot)
-        {
-            if (timeSlot == null) throw new ReservationDomainException($"TimeSlot empty");
-            if (TimeSlots.Contains(timeSlot)) throw new ReservationDomainException($"TimeSlot already added");
-            TimeSlots.Add(timeSlot);
+            if (timeSlot == null) throw new ReservationDomainException("TimeSlot is empty");
+            if (timeSlot == TimeSlot) throw new ReservationDomainException("TimeSlot already set");
+            TimeSlot = timeSlot;
         }
 
         #endregion
