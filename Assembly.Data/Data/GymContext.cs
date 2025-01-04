@@ -17,23 +17,17 @@ public partial class GymContext : DbContext
     }
 
     public virtual DbSet<Cyclingsession> Cyclingsessions { get; set; }
-
     public virtual DbSet<Equipment> Equipment { get; set; }
-
     public virtual DbSet<Member> Members { get; set; }
-
     public virtual DbSet<Program> Programs { get; set; }
-
-    public virtual DbSet<Reservation> Reservations { get; set; }
-
+    public virtual DbSet<Reservation> Reservation { get; set; }
     public virtual DbSet<RunningsessionDetail> RunningsessionDetails { get; set; }
-
     public virtual DbSet<RunningsessionMain> RunningsessionMains { get; set; }
-
     public virtual DbSet<TimeSlot> TimeSlots { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=LAPTOP-RQN2J66V\\SQLEXPRESS;Initial Catalog=Gym;Integrated Security=True;Trust Server Certificate=True");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-4SHJCPG\\SQLEXPRESS;Initial Catalog=GymData;Integrated Security=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -153,33 +147,66 @@ public partial class GymContext : DbContext
                     });
         });
 
-        modelBuilder.Entity<Reservation>(entity =>
+        modelBuilder.Entity<TimeSlot>(entity =>
         {
-            entity.HasKey(e => e.ReservationId).HasName("PK_reservation_reservation_id");
+            entity.HasKey(e => e.TimeSlotId).HasName("PK_time_slot_time_slot_id");
 
-            entity.ToTable("reservation");
+            entity.ToTable("time_slot");
 
-            entity.Property(e => e.ReservationId).HasColumnName("reservation_id");
-            entity.Property(e => e.Date).HasColumnName("date");
-            entity.Property(e => e.EquipmentId).HasColumnName("equipment_id");
-            entity.Property(e => e.MemberId).HasColumnName("member_id");
             entity.Property(e => e.TimeSlotId).HasColumnName("time_slot_id");
-
-            entity.HasOne(d => d.Equipment).WithMany(p => p.Reservations)
-                .HasForeignKey(d => d.EquipmentId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("reservation$FK_reservation_equipment");
-
-            entity.HasOne(d => d.Member).WithMany(p => p.Reservations)
-                .HasForeignKey(d => d.MemberId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("reservation$FK_reservation_member");
-
-            entity.HasOne(d => d.TimeSlot).WithMany(p => p.Reservations)
-                .HasForeignKey(d => d.TimeSlotId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("reservation$FK_reservation_time_slot");
+            entity.Property(e => e.EndTime).HasColumnName("end_time");
+            entity.Property(e => e.PartOfDay)
+                .HasMaxLength(20)
+                .HasColumnName("part_of_day");
+            entity.Property(e => e.StartTime).HasColumnName("start_time");
         });
+
+        modelBuilder.Entity<Reservation>()
+            .HasMany(r => r.TimeSlots)
+            .WithMany()
+            .UsingEntity<Dictionary<string, object>>(
+                "reservation_time_slot_equipment",
+                j => j.HasOne<TimeSlot>()
+                      .WithMany()
+                      .HasForeignKey("time_slot_id"),
+                j => j.HasOne<Reservation>()
+                      .WithMany()
+                      .HasForeignKey("reservation_id"),
+                j =>
+                {
+                    j.ToTable("reservation_time_slot_equipment");
+
+                    // Define the primary key for the join table
+                    j.HasKey("reservation_id", "time_slot_id", "equipment_id");
+
+                    // Explicitly define shadow properties for the join table
+                    j.Property<int>("reservation_id")
+                      .HasColumnName("reservation_id");
+
+                    j.Property<int>("time_slot_id")
+                      .HasColumnName("time_slot_id");
+
+                    j.Property<int>("equipment_id")
+                      .HasColumnName("equipment_id");
+
+                    // Define the relationships
+                    j.HasOne<Equipment>()
+                      .WithMany()
+                      .HasForeignKey("equipment_id");
+                }
+        );
+
+        modelBuilder.Entity<Reservation>()
+            .Property(r => r.ReservationId)
+            .HasColumnName("reservation_id");
+
+        modelBuilder.Entity<Reservation>()
+            .Property(r => r.MemberId)
+            .HasColumnName("member_id");
+
+        modelBuilder.Entity<Reservation>()
+            .Property(r => r.Date)
+            .HasColumnName("date");
 
         modelBuilder.Entity<RunningsessionDetail>(entity =>
         {
@@ -216,20 +243,6 @@ public partial class GymContext : DbContext
                 .HasForeignKey(d => d.MemberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("runningsession_main$FK_runningsession_main_members");
-        });
-
-        modelBuilder.Entity<TimeSlot>(entity =>
-        {
-            entity.HasKey(e => e.TimeSlotId).HasName("PK_time_slot_time_slot_id");
-
-            entity.ToTable("time_slot");
-
-            entity.Property(e => e.TimeSlotId).HasColumnName("time_slot_id");
-            entity.Property(e => e.EndTime).HasColumnName("end_time");
-            entity.Property(e => e.PartOfDay)
-                .HasMaxLength(20)
-                .HasColumnName("part_of_day");
-            entity.Property(e => e.StartTime).HasColumnName("start_time");
         });
 
         OnModelCreatingPartial(modelBuilder);
