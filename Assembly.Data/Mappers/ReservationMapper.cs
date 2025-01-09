@@ -16,7 +16,21 @@ namespace Assembly.Data.Mappers
         {
             try
             {
-                return new ReservationDomain(reservation.ReservationId, reservation.Date, EquipmentMapper.MapToDomain(reservation.Equipment), MemberMapper.MapToDomain(reservation.Member), TimeSlotMapper.MapToDomain(reservation.TimeSlot));
+                var timeSlots = reservation.TimeSlots
+                    .Select(ts => TimeSlotMapper.MapToDomain(ts))
+                    .ToList();
+
+                var equipment = reservation.Equipment
+                    .Select(e => EquipmentMapper.MapToDomain(e))
+                    .ToList();
+
+                return new ReservationDomain(
+                    reservation.ReservationId,
+                    reservation.Date,
+                    MemberMapper.MapToDomain(reservation.Member),
+                    timeSlots,
+                    equipment
+                );
             }
             catch (Exception ex)
             {
@@ -28,14 +42,17 @@ namespace Assembly.Data.Mappers
         {
             try
             {
-                return new Reservation()
+                var reservation = new Reservation()
                 {
                     ReservationId = domain.ReservationId,
                     Date = domain.Date,
-                    EquipmentId = domain.Equipment.EquipmentId,
-                    MemberId = domain.Member.Id,
-                    TimeSlotId = domain.TimeSlot.TimeSlotId
+                    MemberId = domain.Member.Id
                 };
+
+                reservation.TimeSlots = domain.TimeSlots.Select(ts => TimeSlotMapper.MapFromDomain(ts)).ToList();
+                reservation.Equipment = domain.Equipment.Select(e => EquipmentMapper.MapFromDomain(e)).ToList();
+
+                return reservation;
             }
             catch (Exception ex)
             {

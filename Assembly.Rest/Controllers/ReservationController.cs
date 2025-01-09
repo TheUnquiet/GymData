@@ -65,20 +65,34 @@ namespace Assembly.Rest.Controllers
         {
             try
             {
-                var equipment = await _equipmentManager.GetEquipmentById(reservationInputDto.EquipmentId);
+                // Retrieve the related entities from their managers
+                var equipmentList = new List<EquipmentDomain>();
+                foreach (var equipmentId in reservationInputDto.EquipmentIds)
+                {
+                    var equipment = await _equipmentManager.GetEquipmentById(equipmentId);
+                    equipmentList.Add(equipment);
+                }
+
                 var member = await _memberManager.GetMemberById(reservationInputDto.MemberId);
-                var timeslot = await _timeSlotManager.GetTimeSlot(reservationInputDto.TimeSlotId);
 
-                var reservation = new ReservationDomain(
+                var timeSlotList = new List<TimeSlotDomain>();
+                foreach (var timeSlotId in reservationInputDto.TimeSlotIds)
+                {
+                    var timeSlot = await _timeSlotManager.GetTimeSlot(timeSlotId);
+                    timeSlotList.Add(timeSlot);
+                }
+
+                // Create the ReservationDomain with the multiple equipment and time slots
+                var reservationDomain = new ReservationDomain(
                     reservationInputDto.Date,
-                    equipment,
                     member,
-                    timeslot);
+                    timeSlotList,
+                    equipmentList);
 
-                //* Save to db
-                await _reservationManager.AddReservation(reservation);
+                //* Save the reservation to the database
+                await _reservationManager.AddReservation(reservationDomain);
 
-                return CreatedAtAction(nameof(GetReservation), new { Id = reservation.ReservationId }, reservation);
+                return CreatedAtAction(nameof(GetReservation), new { Id = reservationDomain.ReservationId }, reservationDomain);
             }
             catch (Exception ex)
             {
