@@ -12,7 +12,17 @@ namespace Assembly.Rest.Mappers
             {
                 Id = reservation.ReservationId,
                 ReservationDate = reservation.Date,
-                MemberOutputDto = MemberMapper.MapToOutputDto(reservation.Member),
+                TimeSlots = reservation.TimeSlots.Select(t => TimeSlotMapper.MapToOuputDto(t)).ToList(),
+                Equipment = reservation.Equipment.Select(e => EquipmentMapper.MapToOutputDto(e)).ToList()
+            };
+        }
+
+        public static ReservationBasicOutputDto MapToBasicOuputDto(ReservationDomain reservation)
+        {
+            return new ReservationBasicOutputDto()
+            {
+                Id = reservation.ReservationId,
+                ReservationDate = reservation.Date,
                 TimeSlots = reservation.TimeSlots.Select(t => TimeSlotMapper.MapToOuputDto(t)).ToList(),
                 Equipment = reservation.Equipment.Select(e => EquipmentMapper.MapToOutputDto(e)).ToList()
             };

@@ -1,8 +1,8 @@
 ﻿using Assembly.WPF.Models;
+using Assembly.WPF.Reservations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -15,26 +15,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Assembly.WPF.Reservations
+namespace Assembly.WPF.Members
 {
     /// <summary>
-    /// Interaction logic for SearchReservationWindow.xaml
+    /// Interaction logic for SearchMemberWindow.xaml
     /// </summary>
-    public partial class SearchReservationWindow : Window
+    public partial class SearchMemberWindow : Window
     {
-        private ApiService _service;
+        private readonly ApiService _service;
 
-        public SearchReservationWindow()
+        public SearchMemberWindow()
         {
             InitializeComponent();
             _service = new ApiService();
         }
 
-        private async void SearchReservationClick(object sender, RoutedEventArgs e)
+        private async void SearchMemberClick(object sender, RoutedEventArgs e)
         {
-            Reservation reservation = new Reservation();
+            Member member = new Member();
 
-            var response = await _service.GetReservation(int.Parse(ReservationId.Text));
+            var response = await _service.GetMember(int.Parse(MemberId.Text));
 
             if (response.IsSuccessStatusCode)
             {
@@ -45,14 +45,14 @@ namespace Assembly.WPF.Reservations
 
 
                     // Deserialize the JSON content into a Reservation object
-                    reservation = JsonSerializer.Deserialize<Reservation>(content);
+                    member = JsonSerializer.Deserialize<Member>(content);
 
                     // Check if the deserialization was successful
-                    if (reservation != null)
+                    if (member != null)
                     {
                         // Show the reservation window with the fetched data
-                        ShowReservationWindow srw = new ShowReservationWindow(reservation);
-                        srw.Show();
+                        ShowMemberWindow smw = new ShowMemberWindow(member);
+                        smw.Show();
                     }
                     else
                     {
@@ -65,11 +65,6 @@ namespace Assembly.WPF.Reservations
                     // Log and show deserialization errors
                     MessageBox.Show($"Error parsing the response: {ex.Message}", "Deserialization Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }
-
-            else
-            {
-                MessageBox.Show("Error", "Error loading reservation data.", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

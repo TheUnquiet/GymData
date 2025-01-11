@@ -77,6 +77,48 @@ namespace Assembly.Data.Repositories
             }
         }
 
+        public async Task<ReservationDomain> GetReservationWithoutMember(int id)
+        {
+            try
+            {
+                var reservation = await _context.Reservations
+                    .Where(r => r.ReservationId == id)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
+
+                var reservationTimeSlotEquipments = await _context.ReservationTimeSlotEquipments
+                    .Where(rts => rts.ReservationId == id)
+                    .ToListAsync();
+
+                var timeSlots = await _context.TimeSlots
+                    .Where(ts => reservationTimeSlotEquipments.Select(rts => rts.TimeSlotId).Contains(ts.TimeSlotId))
+                    .ToListAsync();
+
+                var equipment = await _context.Equipment
+                    .Where(eq => reservationTimeSlotEquipments.Select(rts => rts.EquipmentId).Contains(eq.EquipmentId))
+                    .ToListAsync();
+
+                // Map to domain model
+                var reservationDomain = ReservationMapper.MapToDomain(reservation);
+
+                foreach (var timeSlot in timeSlots)
+                {
+                    reservationDomain.AddTimeSlot(TimeSlotMapper.MapToDomain(timeSlot));
+                }
+
+                foreach (var eq in equipment)
+                {
+                    reservationDomain.AddEquipment(EquipmentMapper.MapToDomain(eq));
+                }
+
+                return reservationDomain;
+            }
+            catch (Exception ex)
+            {
+                throw new ReservationRepositoryException($"GetReservationForMemberWithoutMember: {ex.Message}", ex);
+            }
+        }
+
         public async Task<bool> ExistingReservation(DateOnly reservationDate, List<TimeSlotDomain> timeSlots)
         {
             try

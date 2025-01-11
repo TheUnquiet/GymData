@@ -30,6 +30,12 @@ namespace Assembly.WPF.Models
         [JsonPropertyName("memberType")]
         public string MemberType { get; set; } = string.Empty;
 
+        [JsonPropertyName("reservations")]
+        public List<Reservation> Reservations { get; set; } = [];
+
+        [JsonPropertyName("programs")]
+        public List<Programs> Programs { get; set; } = [];
+
         public override string ToString()
         {
             return $"{FirstName} {LastName}";

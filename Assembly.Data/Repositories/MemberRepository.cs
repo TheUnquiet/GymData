@@ -38,7 +38,17 @@ public class MemberRepository : IMemberRepository
     {
         try
         {
-            var member = await _context.Members.Where(m => m.MemberId == id).AsNoTracking().FirstOrDefaultAsync();
+            var member = await _context.Members
+                .Include(m => m.ProgramCodes)
+                .Include(m => m.Reservations)
+                    .ThenInclude(r => r.ReservationTimeSlotEquipments)
+                        .ThenInclude(rte => rte.TimeSlot)
+                .Include(m => m.Reservations)
+                    .ThenInclude(r => r.ReservationTimeSlotEquipments)
+                        .ThenInclude(rte => rte.Equipment)
+                .Include(m => m.Cyclingsessions)
+                .Include(m => m.RunningsessionMains)
+                .FirstOrDefaultAsync(m => m.MemberId == id);
 
             if (member != null) return MemberMapper.MapToDomain(member);
 
@@ -46,7 +56,7 @@ public class MemberRepository : IMemberRepository
         }
         catch (Exception ex)
         {
-            throw new MemberRepositoryException("GetMember", ex);
+            throw new MemberRepositoryException($"GetMember: {ex}");
         }
     }
 

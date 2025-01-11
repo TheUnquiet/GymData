@@ -78,14 +78,6 @@ namespace Assembly.Domain.Models
 
         public void SetMaxMembers(int maxMembers)
         {
-            // At least one member
-            if (maxMembers > 1)
-            {
-                ProgramCodeDomainException ex = new ProgramCodeDomainException("MaxMembers is incorrect");
-                ex.Data.Add("MaxMembers", maxMembers);
-                throw ex;
-            }
-
             MaxMembers = maxMembers;
         }
 

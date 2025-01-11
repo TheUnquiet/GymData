@@ -7,10 +7,9 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid Margin="5">
         <Grid>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="334">
                 <TextBlock HorizontalAlignment="Center" Text="Gym data" FontSize="16" Margin="10"/>
-                <Button Content="Add reservation" Margin="10" Padding="2" Click="AddReservationButtonClick"/>
-                <Button Content="Search for a reservation" Margin="10" Padding="2" Click="SearchReservationClick"/>
+                <Button Content="Search for a member" Margin="10" Padding="2" Click="SearchMemberById"/>
             </StackPanel>
         </Grid>
     </Grid>

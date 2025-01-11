@@ -22,6 +22,11 @@ namespace Assembly.WPF.Models
 
         [JsonPropertyName("equipment")]
         public List<Equipment> Equipment { get; set; } = new List<Equipment>();
+
+        public override string ToString()
+        {
+            return $"{Id} {ReservationDate}";
+        }
     }
 
 }

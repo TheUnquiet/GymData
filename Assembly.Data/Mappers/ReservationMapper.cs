@@ -18,23 +18,23 @@ namespace Assembly.Data.Mappers
             try
             {
                 var timeSlots = reservation.ReservationTimeSlotEquipments
-                    .Select(rte => new TimeSlotDomain( 
-                        rte.TimeSlotId, 
-                        rte.TimeSlot.StartTime, 
-                        rte.TimeSlot.EndTime, 
+                    .Select(rte => new TimeSlotDomain(
+                        rte.TimeSlotId,
+                        rte.TimeSlot.StartTime,
+                        rte.TimeSlot.EndTime,
                         rte.TimeSlot.PartOfDay)
                     ).ToList();
 
                 var equipment = reservation.ReservationTimeSlotEquipments
                     .Select(rte => new EquipmentDomain(
-                        rte.EquipmentId, 
+                        rte.EquipmentId,
                         rte.Equipment.DeviceType)
                     ).ToList();
 
                 return new ReservationDomain(
                     reservation.ReservationId,
                     reservation.Date,
-                    MemberMapper.MapToDomain(reservation.Member),
+                    null, // Set the member reference to null initially
                     timeSlots,
                     equipment
                 );
@@ -53,7 +53,7 @@ namespace Assembly.Data.Mappers
                 {
                     ReservationId = domain.ReservationId,
                     Date = domain.Date,
-                    MemberId = domain.Member.Id
+                    MemberId = domain.Member?.Id ?? 0 // Avoid circular reference
                 };
 
                 reservation.ReservationTimeSlotEquipments = domain.TimeSlots

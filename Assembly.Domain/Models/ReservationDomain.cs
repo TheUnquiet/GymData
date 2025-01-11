@@ -46,7 +46,7 @@ namespace Assembly.Domain.Models
 
         public DateOnly Date { get; set; }
 
-        public MemberDomain Member { get; set; } = null!;
+        public MemberDomain? Member { get; set; } = null!;
 
         public List<TimeSlotDomain> TimeSlots { get; } = [];
 

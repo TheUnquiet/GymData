@@ -1,0 +1,26 @@
+﻿using Assembly.Domain.Models;
+using Assembly.Rest.Dto.Output;
+
+namespace Assembly.Rest.Mappers
+{
+    public static class ProgramMapper
+    {
+        public static ProgramOutputDto MapProgramToOutputDto(ProgramDomain program)
+        {
+            return new ProgramOutputDto
+            {
+                ProgramCode = program.ProgramCode,
+                Name = program.Name,
+                Target = program.Target,
+                Startdate = program.Startdate,
+                MaxMembers = program.MaxMembers
+            };
+        }
+
+
+        public static ProgramDomain MapProgramToDomain(ProgramOutputDto program)
+        {
+            return new ProgramDomain(program.ProgramCode, program.Name, program.Target, program.Startdate, program.MaxMembers);
+        }
+    }
+}

@@ -1,8 +1,6 @@
-﻿using Assembly.Domain.Models;
-
-namespace Assembly.Rest.Dto.Output
+﻿namespace Assembly.Rest.Dto.Output
 {
-    public class ReservationOutputDto
+    public class ReservationBasicOutputDto
     {
         public int Id { get; set; }
 

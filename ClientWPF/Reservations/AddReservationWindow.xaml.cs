@@ -50,8 +50,6 @@ namespace Assembly.WPF.Reservations
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     _equipment = JsonSerializer.Deserialize<List<Equipment>>(content);
-
-                    EquipmentComboBox.ItemsSource = _equipment;
                 }
                 else
                 {
@@ -73,7 +71,6 @@ namespace Assembly.WPF.Reservations
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     _timeSlots = JsonSerializer.Deserialize<List<TimeSlot>>(content);
-                    TimeSlotComboBox.ItemsSource = _timeSlots;
                 }
                 else
                 {

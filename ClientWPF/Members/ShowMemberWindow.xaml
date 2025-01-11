@@ -1,0 +1,45 @@
+﻿<Window x:Class="Assembly.WPF.Members.ShowMemberWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Assembly.WPF.Members"
+        mc:Ignorable="d"
+        Title="ShowMemberWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Name="AdressLabel" HorizontalAlignment="Center"/>
+        
+        <Label Grid.Row="0" Grid.Column="1" Name="NameLabel" HorizontalAlignment="Center"/>
+
+        <Label Grid.Row="0" Grid.Column="2" Name="EmailLabel" HorizontalAlignment="Center"/>
+
+        <Label Grid.Row="0" Grid.Column="3" Name="BirthdayLabel" HorizontalAlignment="Center"/>
+
+        <Label Grid.Row="0" Grid.Column="4" Name="IntrestLabel" HorizontalAlignment="Center"/>
+        
+        <Label Grid.Row="0" Grid.Column="5" Name="MemberTypeLabel" HorizontalAlignment="Center"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Programs:" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
+        <ListBox Grid.Row="2" Grid.ColumnSpan="3" Margin="5" Name="ProgramsListBox"/>
+
+        <Label Grid.Row="1" Grid.Column="3" Content="Reservations:" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
+        <ListBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" Margin="5" Name="ReservationsListBox"/>
+
+        <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="6" Margin="5" Content="Close" Click="CloseWindowClick"/>
+    </Grid>
+</Window>

@@ -1,4 +1,5 @@
-﻿using Assembly.WPF.Reservations;
+﻿using Assembly.WPF.Members;
+using Assembly.WPF.Reservations;
 using System.Windows;
 
 namespace ClientWPF
@@ -20,10 +21,10 @@ namespace ClientWPF
             arw.Show();
         }
 
-        private void SearchReservationClick(object sender, RoutedEventArgs e)
+        private void SearchMemberById(object sender, RoutedEventArgs e)
         {
-            SearchReservationWindow srw = new SearchReservationWindow();
-            srw.Show();
+            SearchMemberWindow smw = new SearchMemberWindow();
+            smw.Show();
         }
     }
 }

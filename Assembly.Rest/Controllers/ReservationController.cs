@@ -111,7 +111,7 @@ namespace Assembly.Rest.Controllers
 
                 if (reservation == null) return NotFound("Reservation not found");
 
-                else _reservationManager.DeleteReservation(reservation);
+                else await _reservationManager.DeleteReservation(reservation);
 
                 return Ok($"Reservation {reservation.ReservationId}");
             }

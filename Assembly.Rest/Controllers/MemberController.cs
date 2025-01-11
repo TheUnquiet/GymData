@@ -1,6 +1,7 @@
 ﻿using Assembly.Domain.Managers;
 using Assembly.Domain.Models;
 using Assembly.Rest.Dto.Input;
+using Assembly.Rest.Dto.Output;
 using Assembly.Rest.Mappers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace Assembly.Rest.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<MemberDomain>>> GetMembers()
+        public async Task<ActionResult<List<MemberOutputDto>>> GetMembers()
         {
             try
             {
@@ -30,7 +31,7 @@ namespace Assembly.Rest.Controllers
 
                 var members = await _manager.GetMembers();
 
-                return Ok(members);
+                return Ok(members.Select((m) => MemberMapper.MapToOutputDto(m)).ToList());
             }
             catch (Exception ex)
             {
@@ -39,7 +40,7 @@ namespace Assembly.Rest.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<MemberDomain>> GetMemberById(int id)
+        public async Task<ActionResult<MemberOutputDto>> GetMemberById(int id)
         {
             try
             {

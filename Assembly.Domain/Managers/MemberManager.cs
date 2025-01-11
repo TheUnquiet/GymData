@@ -26,7 +26,7 @@ namespace Assembly.Domain.Managers
             }
             catch (Exception ex)
             {
-                throw new MemberManagerException("GetMember", ex);
+                throw new MemberManagerException($"GetMember {ex}");
             }
         }
 

@@ -50,6 +50,11 @@ namespace Assembly.WPF.Models
             return await _httpClient.GetAsync($"Reservation/{id}");
         }
 
+        public async Task<HttpResponseMessage> GetMember(int id)
+        {
+            return await _httpClient.GetAsync($"Member/{id}");
+        }
+
         public async Task<HttpResponseMessage> CreateReservation(Reservation reservation)
         {
             var jsonContent = new StringContent(JsonSerializer.Serialize(reservation), Encoding.UTF8, "application/json");

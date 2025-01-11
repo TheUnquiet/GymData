@@ -14,7 +14,7 @@ public class MemberDomain
 {
     #region Constructors
 
-    public MemberDomain(string firstName, string lastName, string email, string address, DateOnly birthday, string intrest, string memberType)
+    public MemberDomain(string firstName, string lastName, string email, string address, DateOnly birthday, string intrest, string memberType, List<ReservationDomain> reservations, List<ProgramDomain> programCodes, List<RunningsessionMainDomain> runningsessionMainDomains, List<CyclingssesionDomain> cyclingssesionDomains)
     {
         SetFirstName(firstName);
         SetLastName(lastName);
@@ -23,11 +23,62 @@ public class MemberDomain
         SetBirthday(birthday);
         SetIntrest(intrest);
         SetMemberType(memberType);
+
+        foreach (var reservation in reservations)
+        {
+            AddReservations(reservation);
+        }
+
+        foreach (var program in programCodes)
+        {
+            AddProgram(program);
+        }
+
+        foreach (var runningsessionMain in runningsessionMainDomains)
+        {
+            AddRunningRunningSession(runningsessionMain);
+        }
+
+        foreach (var cyclingssesion in cyclingssesionDomains)
+        {
+            AddCyclingssesion(cyclingssesion);
+        }
     }
 
-    public MemberDomain(int id, string firstName, string lastName, string email, string address, DateOnly birthday, string intrest, string memberType)
+    public MemberDomain(int id, string firstName, string lastName, string email, string address, DateOnly birthday, string intrest, string memberType, List<ReservationDomain> reservations, List<ProgramDomain> programCodes, List<RunningsessionMainDomain> runningsessionMainDomains, List<CyclingssesionDomain> cyclingssesionDomains)
     {
         SetId(id);
+        SetFirstName(firstName);
+        SetLastName(lastName);
+        SetEmail(email);
+        SetAddress(address);
+        SetBirthday(birthday);
+        SetIntrest(intrest);
+        SetMemberType(memberType);
+
+        foreach (var  reservation in reservations)
+        {
+            AddReservations(reservation);
+        }
+
+        foreach (var program in programCodes)
+        {
+            AddProgram(program);
+        }
+
+        foreach (var runningsessionMain in runningsessionMainDomains)
+        {
+            AddRunningRunningSession(runningsessionMain);
+        }
+
+        foreach (var cyclingssesion in cyclingssesionDomains)
+        {
+            AddCyclingssesion(cyclingssesion);
+        }
+    }
+
+    public MemberDomain(string firstName, string lastName, string email, string address, DateOnly birthday, string intrest, string memberType)
+    {
         SetFirstName(firstName);
         SetLastName(lastName);
         SetEmail(email);
@@ -57,13 +108,13 @@ public class MemberDomain
 
     public string? Intressest { get; private set; }
 
-    public List<CyclingssesionDomain> Cyclingssesions { get; private set; } = [];
+    public List<CyclingssesionDomain> Cyclingssesions { get; set; } = [];
 
-    public List<RunningsessionMainDomain> RunningsessionMains { get; private set; } = [];
+    public List<RunningsessionMainDomain> RunningsessionMains { get; set; } = [];
 
-    public List<ReservationDomain> Reservations { get; private set; } = [];
+    public List<ReservationDomain> Reservations { get; set; } = [];
 
-    public List<ProgramDomain> ProgramCodes { get; private set; } = [];
+    public List<ProgramDomain> ProgramCodes { get; set; } = [];
 
     #endregion
 
@@ -166,6 +217,8 @@ public class MemberDomain
     {
         if (reservation is null) throw new MemberDomainException("Reservation is empty");
         if (Reservations.Contains(reservation)) throw new MemberDomainException("Reservation already added");
+        reservation.SetMember(this);
+
         Reservations.Add(reservation);
     }
 

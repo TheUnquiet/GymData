@@ -1,4 +1,6 @@
-﻿namespace Assembly.Rest.Dto.Output
+﻿using Assembly.Domain.Models;
+
+namespace Assembly.Rest.Dto.Output
 {
     public class MemberOutputDto
     {
@@ -15,5 +17,13 @@
         public string Intrest { get; set; } = string.Empty;
 
         public string MemberType { get; set; } = string.Empty;
+
+        public List<ReservationBasicOutputDto> Reservations { get; set; } = [];
+
+        public List<ProgramOutputDto> Programs { get; set; } = [];
+
+        public List<CyclingSessionOutputDto> CyclingssesionDomains { get; set; } = [];
+
+        public List<RunningSessionOutputDto> RunningSessionDomains { get; set; } = [];
     }
 }

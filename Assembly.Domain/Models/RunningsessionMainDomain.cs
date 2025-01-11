@@ -35,7 +35,7 @@ namespace Assembly.Domain.Models
 
         public double AvgSpeed { get; set; }
 
-        public MemberDomain Member { get; set; } = null!;
+        public MemberDomain? Member { get; set; } = null!;
 
         public List<RunningsessionDetailDomain> RunningsessionDetails { get; set; } = [];
 

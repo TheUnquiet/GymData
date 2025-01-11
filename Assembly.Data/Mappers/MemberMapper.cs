@@ -16,7 +16,53 @@ public static class MemberMapper
     {
         try
         {
-            return new MemberDomain(member.MemberId, member.FirstName, member.LastName, member.Email, member.Address, member.Birthday, member.Interests, member.Membertype);
+            var memberDomain = new MemberDomain(
+                member.FirstName,
+                member.LastName,
+                member.Email,
+                member.Address,
+                member.Birthday,
+                member.Interests,
+                member.Membertype,
+                new List<ReservationDomain>(), // Initialize with an empty list
+                member.ProgramCodes.Select(ProgramCodesMapper.MapToDomain).ToList(),
+                new List<RunningsessionMainDomain>(), // Initialize with an empty list
+                new List<CyclingssesionDomain>()
+            );
+
+            memberDomain.Reservations = member.Reservations.Select(r => new ReservationDomain(
+                r.ReservationId,
+                r.Date,
+                memberDomain, // Set the member reference here
+                r.ReservationTimeSlotEquipments.Select(rte => new TimeSlotDomain(
+                    rte.TimeSlotId,
+                    rte.TimeSlot.StartTime,
+                    rte.TimeSlot.EndTime,
+                    rte.TimeSlot.PartOfDay)).ToList(),
+                r.ReservationTimeSlotEquipments.Select(rte => new EquipmentDomain(
+                    rte.EquipmentId,
+                    rte.Equipment.DeviceType)).ToList())).ToList();
+
+            memberDomain.RunningsessionMains = member.RunningsessionMains.Select(rs => new RunningsessionMainDomain(
+                rs.RunningsessionId,
+                rs.Date,
+                rs.Duration,
+                rs.AvgSpeed,
+                memberDomain)).ToList();
+
+            memberDomain.Cyclingssesions = member.Cyclingsessions.Select(cs => new CyclingssesionDomain(
+                cs.CyclingsessionId,
+                cs.Date,
+                cs.Duration,
+                cs.AvgWatt,
+                cs.MaxWatt,
+                cs.AvgCadence,
+                cs.MaxCadence,
+                cs.Trainingtype,
+                cs.Comment,
+                memberDomain)).ToList();
+
+            return memberDomain;
         }
         catch (Exception ex)
         {
@@ -28,18 +74,30 @@ public static class MemberMapper
     {
         try
         {
-            return new Member() { 
-                MemberId = member.Id, 
-                FirstName = member.FirstName, 
-                LastName = member.LastName, 
-                Email = member.Email, 
-                Address = member.Address, 
-                Birthday = member.Birthday, 
-                Interests = member.Intressest, 
+            return new Member()
+            {
+                MemberId = member.Id,
+                FirstName = member.FirstName,
+                LastName = member.LastName,
+                Email = member.Email,
+                Address = member.Address,
+                Birthday = member.Birthday,
+                Interests = member.Intressest,
                 Membertype = member.MemberType,
-                Cyclingsessions = member.Cyclingssesions.Select(CyclingsessionMapper.MapFromDomain).ToList(), 
+                Cyclingsessions = member.Cyclingssesions.Select(CyclingsessionMapper.MapFromDomain).ToList(),
                 ProgramCodes = member.ProgramCodes.Select(ProgramCodesMapper.MapFromDomain).ToList(),
-                Reservations = member.Reservations.Select(ReservationMapper.MapFromDomain).ToList(), 
+                Reservations = member.Reservations.Select(r => new Reservation()
+                {
+                    ReservationId = r.ReservationId,
+                    Date = r.Date,
+                    MemberId = member.Id, // Avoid circular reference
+                    ReservationTimeSlotEquipments = r.TimeSlots.Zip(r.Equipment, (timeSlot, equip) => new ReservationTimeSlotEquipment
+                    {
+                        TimeSlotId = timeSlot.TimeSlotId,
+                        EquipmentId = equip.EquipmentId,
+                        ReservationId = r.ReservationId
+                    }).ToList()
+                }).ToList(),
                 RunningsessionMains = member.RunningsessionMains.Select(RunningsessionMainMapper.MapFromDomain).ToList(),
             };
         }

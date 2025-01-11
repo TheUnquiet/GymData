@@ -59,7 +59,7 @@ namespace Assembly.Domain.Models
 
         public string? Comment { get; set; }
 
-        public MemberDomain Member { get; set; } = null!;
+        public MemberDomain? Member { get; set; }
 
         #endregion
 

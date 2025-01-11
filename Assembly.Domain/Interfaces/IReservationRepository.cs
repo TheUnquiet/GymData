@@ -13,6 +13,8 @@ namespace Assembly.Domain.Interfaces
 
         Task<ReservationDomain> GetReservationById(int id);
 
+        Task<ReservationDomain> GetReservationWithoutMember(int id);
+
         Task<bool> ExistingReservation(DateOnly reservationDate, List<TimeSlotDomain> timeSlots);
 
         Task AddReservation(ReservationDomain reservation);
