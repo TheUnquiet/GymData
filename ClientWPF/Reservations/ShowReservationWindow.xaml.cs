@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assembly.WPF.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,22 @@ namespace Assembly.WPF.Reservations
     /// </summary>
     public partial class ShowReservationWindow : Window
     {
-        public ShowReservationWindow()
+        private Reservation _reservation;
+
+        public ShowReservationWindow(Reservation reservation)
         {
             InitializeComponent();
+            _reservation = reservation;
+            ReservationId.Text = _reservation.Id.ToString();
+            ReservationDate.Text = _reservation.ReservationDate.ToString("yyyy-MM-dd");
+            ReservationMember.Text = _reservation.Member.ToString();
+            TimeSlotListBox.ItemsSource = _reservation.TimeSlots;
+            EquipmentListBox.ItemsSource = _reservation.Equipment;
+        }
+
+        private void DeleteReservationClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("yeah");
         }
     }
 }

@@ -43,8 +43,22 @@ namespace Assembly.Domain.Managers
             }
         }
 
+        public async Task<bool> ExistingReservation(DateOnly reservationDate, List<TimeSlotDomain> timeSlots)
+        {
+            try
+            {
+                return await _reservationRepository.ExistingReservation(reservationDate, timeSlots);
+            }
+            catch (Exception ex)
+            {
+                throw new ReservationManagerException($"ExistingReservation: {ex.Message}", ex);
+            }
+        }
+
         public async Task AddReservation(ReservationDomain reservation)
         {
+            if (await ExistingReservation(reservation.Date, reservation.TimeSlots)) throw new ReservationManagerException("A reservation already exists with the same time slot on the same date.");
+
             try
             {
                await _reservationRepository.AddReservation(reservation);
@@ -67,8 +81,10 @@ namespace Assembly.Domain.Managers
             }
         }
 
-        public void DeleteReservation(ReservationDomain reservation)
+        public async Task DeleteReservation(ReservationDomain reservation)
         {
+            if (await GetReservationById(reservation.ReservationId) == null) throw new ReservationManagerException("Reservation does not exist.");
+
             try
             {
                 _reservationRepository.DeleteReservation(reservation);

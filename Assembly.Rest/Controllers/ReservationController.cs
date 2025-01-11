@@ -1,6 +1,7 @@
 ﻿using Assembly.Domain.Managers;
 using Assembly.Domain.Models;
 using Assembly.Rest.Dto.Input;
+using Assembly.Rest.Dto.Output;
 using Assembly.Rest.Mappers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -42,14 +43,14 @@ namespace Assembly.Rest.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReservationDomain>> GetReservation(int id)
+        public async Task<ActionResult<ReservationOutputDto>> GetReservation(int id)
         {
             try
             {
                 _logger.LogInformation("Fetching reservation");
                 var r = await _reservationManager.GetReservationById(id);
 
-                if (r != null) return Ok(r);
+                if (r != null) return Ok(ReservationMapper.MapToOutputDto(r));
 
                 else return NotFound("Reservation not found");
             }

@@ -10,8 +10,11 @@ namespace Assembly.Rest.Mappers
         {
             return new ReservationOutputDto()
             {
-                Date = reservation.Date,
-                Member = MemberMapper.MapToOutputDto(reservation.Member),
+                Id = reservation.ReservationId,
+                ReservationDate = reservation.Date,
+                MemberOutputDto = MemberMapper.MapToOutputDto(reservation.Member),
+                TimeSlots = reservation.TimeSlots.Select(t => TimeSlotMapper.MapToOuputDto(t)).ToList(),
+                Equipment = reservation.Equipment.Select(e => EquipmentMapper.MapToOutputDto(e)).ToList()
             };
         }
     }

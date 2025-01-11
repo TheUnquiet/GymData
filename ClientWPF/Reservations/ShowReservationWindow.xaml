@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Assembly.WPF.Reservations"
         mc:Ignorable="d"
-        Title="ShowReservationWindow" Height="450" Width="800">
+        Title="Resevation" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="ID" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Name="ReservationId" Margin="5"/>
+        <Label Grid.Row="0" Grid.Column="2" Content="Date" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="3" Name="ReservationDate" Margin="5"/>
+        <Label Grid.Row="0" Grid.Column="4" Content="Member" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="5" Name="ReservationMember" Margin="5"/>
+
+        <ListBox Name="TimeSlotListBox"  Grid.Row="1" Grid.ColumnSpan="3" Margin="5"/>
+        <ListBox Name="EquipmentListBox"  Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" Margin="5"/>
+
+        <Button Grid.Row="2" Grid.Column="0" Content="Delete reservation" Click="DeleteReservationClick" Margin="5" Grid.ColumnSpan="6"/>
     </Grid>
 </Window>

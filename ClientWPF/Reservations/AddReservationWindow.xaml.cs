@@ -25,33 +25,11 @@ namespace Assembly.WPF.Reservations
             LoadTimeSlotsData();
         }
 
-        private async void SubmitReservation_Click(object sender, RoutedEventArgs e)
+        private void SubmitReservation_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                var selectedEquipment = EquipmentComboBox.SelectedItem as Equipment;
-                var selectedTimeSlot = TimeSlotComboBox.SelectedItem as TimeSlot;
-
-                if (selectedEquipment == null || selectedTimeSlot == null)
-                {
-                    MessageBox.Show("Error", "Please select equipment and time slot.", MessageBoxButton.YesNoCancel, MessageBoxImage.Error);
-                    return;
-                }
-
-                var reservation = new Reservation()
-                {
-                    Date = DateOnly.Parse(DateTextBox.Text),
-                    EquipmentId = selectedEquipment.Id,
-                    MemberId = int.Parse(MemberIdTextBox.Text),
-                    TimeSlotId = selectedTimeSlot.TimeSlotId
-                };
-
-                var response = await _apiService.CreateReservation(reservation);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    MessageBox.Show("Reservation added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                MessageBox.Show("yeah yeah yeah");
             }
             catch (FormatException)
             {

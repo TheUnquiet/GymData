@@ -13,7 +13,7 @@ namespace Assembly.WPF.Models
         public int Id { get; set; }
 
         [JsonPropertyName("deviceType")]
-        public string DeviceType { get; set; } = "";
+        public string DeviceType { get; set; } = string.Empty;
 
         public override string ToString()
         {

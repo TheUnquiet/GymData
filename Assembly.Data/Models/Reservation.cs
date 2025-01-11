@@ -13,7 +13,5 @@ public partial class Reservation
 
     public virtual Member Member { get; set; } = null!;
 
-    public ICollection<TimeSlot> TimeSlots { get; set; } = null!;
-
-    public virtual ICollection<Equipment> Equipment { get; set; } = null!;
+    public virtual ICollection<ReservationTimeSlotEquipment> ReservationTimeSlotEquipments { get; set; } = new List<ReservationTimeSlotEquipment>();
 }

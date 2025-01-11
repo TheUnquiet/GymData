@@ -19,7 +19,7 @@ namespace Assembly.WPF.Models
         public int EndTime { get; set; }
 
         [JsonPropertyName("partOfDay")]
-        public string PartOfDay { get; set; } = "";
+        public string PartOfDay { get; set; } = string.Empty;
 
         public override string ToString()
         {

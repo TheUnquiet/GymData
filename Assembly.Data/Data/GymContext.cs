@@ -17,17 +17,26 @@ public partial class GymContext : DbContext
     }
 
     public virtual DbSet<Cyclingsession> Cyclingsessions { get; set; }
+
     public virtual DbSet<Equipment> Equipment { get; set; }
+
     public virtual DbSet<Member> Members { get; set; }
+
     public virtual DbSet<Program> Programs { get; set; }
-    public virtual DbSet<Reservation> Reservation { get; set; }
+
+    public virtual DbSet<Reservation> Reservations { get; set; }
+
+    public virtual DbSet<ReservationTimeSlotEquipment> ReservationTimeSlotEquipments { get; set; }
+
     public virtual DbSet<RunningsessionDetail> RunningsessionDetails { get; set; }
+
     public virtual DbSet<RunningsessionMain> RunningsessionMains { get; set; }
+
     public virtual DbSet<TimeSlot> TimeSlots { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-4SHJCPG\\SQLEXPRESS;Initial Catalog=GymData;Integrated Security=True;Trust Server Certificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-4SHJCPG\\SQLEXPRESS;Initial Catalog=GymData;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -147,66 +156,50 @@ public partial class GymContext : DbContext
                     });
         });
 
-        modelBuilder.Entity<TimeSlot>(entity =>
+        modelBuilder.Entity<Reservation>(entity =>
         {
-            entity.HasKey(e => e.TimeSlotId).HasName("PK_time_slot_time_slot_id");
+            entity.HasKey(e => e.ReservationId).HasName("PK_reservation_reservation_id");
 
-            entity.ToTable("time_slot");
+            entity.ToTable("reservation");
 
-            entity.Property(e => e.TimeSlotId).HasColumnName("time_slot_id");
-            entity.Property(e => e.EndTime).HasColumnName("end_time");
-            entity.Property(e => e.PartOfDay)
-                .HasMaxLength(20)
-                .HasColumnName("part_of_day");
-            entity.Property(e => e.StartTime).HasColumnName("start_time");
+            entity.Property(e => e.ReservationId).HasColumnName("reservation_id");
+            entity.Property(e => e.Date).HasColumnName("date");
+            entity.Property(e => e.MemberId).HasColumnName("member_id");
+
+            entity.HasOne(d => d.Member).WithMany(p => p.Reservations)
+                .HasForeignKey(d => d.MemberId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("reservation$FK_reservation_member");
         });
 
-        modelBuilder.Entity<Reservation>()
-            .HasMany(r => r.TimeSlots)
-            .WithMany()
-            .UsingEntity<Dictionary<string, object>>(
-                "reservation_time_slot_equipment",
-                j => j.HasOne<TimeSlot>()
-                      .WithMany()
-                      .HasForeignKey("time_slot_id"),
-                j => j.HasOne<Reservation>()
-                      .WithMany()
-                      .HasForeignKey("reservation_id"),
-                j =>
-                {
-                    j.ToTable("reservation_time_slot_equipment");
+        modelBuilder.Entity<ReservationTimeSlotEquipment>(entity =>
+        {
+            entity.HasKey(e => new { e.ReservationId, e.TimeSlotId, e.EquipmentId }).HasName("PK__reservat__5B5EDE7C76355564");
 
-                    // Define the primary key for the join table
-                    j.HasKey("reservation_id", "time_slot_id", "equipment_id");
+            entity.ToTable("reservation_time_slot_equipment");
 
-                    // Explicitly define shadow properties for the join table
-                    j.Property<int>("reservation_id")
-                      .HasColumnName("reservation_id");
+            entity.Property(e => e.ReservationId).HasColumnName("reservation_id");
+            entity.Property(e => e.TimeSlotId).HasColumnName("time_slot_id");
+            entity.Property(e => e.EquipmentId).HasColumnName("equipment_id");
 
-                    j.Property<int>("time_slot_id")
-                      .HasColumnName("time_slot_id");
+            // Cascade delete for Equipment
+            entity.HasOne(d => d.Equipment).WithMany(p => p.ReservationTimeSlotEquipments)
+                .HasForeignKey(d => d.EquipmentId)
+                .OnDelete(DeleteBehavior.Cascade)  // Cascade delete when Equipment is deleted
+                .HasConstraintName("fk_equipment");
 
-                    j.Property<int>("equipment_id")
-                      .HasColumnName("equipment_id");
+            // Cascade delete for Reservation
+            entity.HasOne(d => d.Reservation).WithMany(p => p.ReservationTimeSlotEquipments)
+                .HasForeignKey(d => d.ReservationId)
+                .OnDelete(DeleteBehavior.Cascade)  // Cascade delete when Reservation is deleted
+                .HasConstraintName("fk_reservation");
 
-                    // Define the relationships
-                    j.HasOne<Equipment>()
-                      .WithMany()
-                      .HasForeignKey("equipment_id");
-                }
-        );
-
-        modelBuilder.Entity<Reservation>()
-            .Property(r => r.ReservationId)
-            .HasColumnName("reservation_id");
-
-        modelBuilder.Entity<Reservation>()
-            .Property(r => r.MemberId)
-            .HasColumnName("member_id");
-
-        modelBuilder.Entity<Reservation>()
-            .Property(r => r.Date)
-            .HasColumnName("date");
+            // Cascade delete for TimeSlot
+            entity.HasOne(d => d.TimeSlot).WithMany(p => p.ReservationTimeSlotEquipments)
+                .HasForeignKey(d => d.TimeSlotId)
+                .OnDelete(DeleteBehavior.Cascade)  // Cascade delete when TimeSlot is deleted
+                .HasConstraintName("fk_time_slot");
+        });
 
         modelBuilder.Entity<RunningsessionDetail>(entity =>
         {
@@ -243,6 +236,20 @@ public partial class GymContext : DbContext
                 .HasForeignKey(d => d.MemberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("runningsession_main$FK_runningsession_main_members");
+        });
+
+        modelBuilder.Entity<TimeSlot>(entity =>
+        {
+            entity.HasKey(e => e.TimeSlotId).HasName("PK_time_slot_time_slot_id");
+
+            entity.ToTable("time_slot");
+
+            entity.Property(e => e.TimeSlotId).HasColumnName("time_slot_id");
+            entity.Property(e => e.EndTime).HasColumnName("end_time");
+            entity.Property(e => e.PartOfDay)
+                .HasMaxLength(20)
+                .HasColumnName("part_of_day");
+            entity.Property(e => e.StartTime).HasColumnName("start_time");
         });
 
         OnModelCreatingPartial(modelBuilder);

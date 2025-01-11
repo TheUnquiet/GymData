@@ -11,18 +11,25 @@ namespace Assembly.Data.Mappers
 {
     public static class ReservationMapper
     {
-
         public static ReservationDomain MapToDomain(Reservation reservation)
         {
+            if (reservation == null) throw new MapException("Reservation does not exist");
+
             try
             {
-                var timeSlots = reservation.TimeSlots
-                    .Select(ts => TimeSlotMapper.MapToDomain(ts))
-                    .ToList();
+                var timeSlots = reservation.ReservationTimeSlotEquipments
+                    .Select(rte => new TimeSlotDomain( 
+                        rte.TimeSlotId, 
+                        rte.TimeSlot.StartTime, 
+                        rte.TimeSlot.EndTime, 
+                        rte.TimeSlot.PartOfDay)
+                    ).ToList();
 
-                var equipment = reservation.Equipment
-                    .Select(e => EquipmentMapper.MapToDomain(e))
-                    .ToList();
+                var equipment = reservation.ReservationTimeSlotEquipments
+                    .Select(rte => new EquipmentDomain(
+                        rte.EquipmentId, 
+                        rte.Equipment.DeviceType)
+                    ).ToList();
 
                 return new ReservationDomain(
                     reservation.ReservationId,
@@ -49,8 +56,14 @@ namespace Assembly.Data.Mappers
                     MemberId = domain.Member.Id
                 };
 
-                reservation.TimeSlots = domain.TimeSlots.Select(ts => TimeSlotMapper.MapFromDomain(ts)).ToList();
-                reservation.Equipment = domain.Equipment.Select(e => EquipmentMapper.MapFromDomain(e)).ToList();
+                reservation.ReservationTimeSlotEquipments = domain.TimeSlots
+                    .Zip(domain.Equipment, (timeSlot, equip) => new ReservationTimeSlotEquipment
+                    {
+                        TimeSlotId = timeSlot.TimeSlotId,
+                        EquipmentId = equip.EquipmentId,
+                        ReservationId = domain.ReservationId
+                    })
+                    .ToList();
 
                 return reservation;
             }

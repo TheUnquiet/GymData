@@ -4,10 +4,14 @@ namespace Assembly.Rest.Dto.Output
 {
     public class ReservationOutputDto
     {
-        public DateOnly Date { get; set; }
+        public int Id { get; set; }
 
-        public EquipmentOutputDto Equipment { get; set; } = null!;
+        public DateOnly ReservationDate { get; set; }
 
-        public MemberOutputDto Member { get; set; } = null!;
+        public MemberOutputDto MemberOutputDto { get; set; } = null!;
+
+        public List<TimeSlotOutputDto> TimeSlots { get; set; } = [];
+
+        public List<EquipmentOutputDto> Equipment { get; set; } = [];
     }
 }

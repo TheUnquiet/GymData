@@ -19,5 +19,11 @@ namespace ClientWPF
             AddReservationWindow arw = new AddReservationWindow();
             arw.Show();
         }
+
+        private void SearchReservationClick(object sender, RoutedEventArgs e)
+        {
+            SearchReservationWindow srw = new SearchReservationWindow();
+            srw.Show();
+        }
     }
 }

@@ -9,7 +9,8 @@
         <Grid>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock HorizontalAlignment="Center" Text="Gym data" FontSize="16" Margin="10"/>
-                <Button Name="CenteredButton" Content="Add reservation" Margin="10" Click="AddReservationButtonClick"/>
+                <Button Content="Add reservation" Margin="10" Padding="2" Click="AddReservationButtonClick"/>
+                <Button Content="Search for a reservation" Margin="10" Padding="2" Click="SearchReservationClick"/>
             </StackPanel>
         </Grid>
     </Grid>

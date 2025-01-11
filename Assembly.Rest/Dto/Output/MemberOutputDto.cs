@@ -14,6 +14,6 @@
 
         public string Intrest { get; set; } = string.Empty;
 
-        public string MemberType { get; set; } = "";
+        public string MemberType { get; set; } = string.Empty;
     }
 }

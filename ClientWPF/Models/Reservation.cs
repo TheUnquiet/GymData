@@ -2,18 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Assembly.WPF.Models
-{
-    public class Reservation
+{    public class Reservation
     {
-        public DateOnly Date { get; set; }
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
 
-        public int EquipmentId { get; set; }
+        [JsonPropertyName("reservationDate")]
+        public DateOnly ReservationDate { get; set; }
 
-        public int MemberId { get; set; }
+        [JsonPropertyName("memberOutputDto")]
+        public Member Member { get; set; } = null!;
 
-        public int TimeSlotId { get; set; }
+        [JsonPropertyName("timeSlots")]
+        public List<TimeSlot> TimeSlots { get; set; } = new List<TimeSlot>();
+
+        [JsonPropertyName("equipment")]
+        public List<Equipment> Equipment { get; set; } = new List<Equipment>();
     }
+
 }
