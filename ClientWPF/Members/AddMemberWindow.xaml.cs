@@ -41,7 +41,7 @@ namespace Assembly.WPF.Members
                     Birthday = BirthdayDatePicker.SelectedDate.HasValue ? DateOnly.FromDateTime(BirthdayDatePicker.SelectedDate.Value) : DateOnly.FromDateTime(DateTime.Now),
                     Intrest = InterestTextBox.Text,
                     Reservations = new List<Reservation>(),
-                    Programs = new List<Programs>(),
+                    Programs = new List<ProgramModel>(),
                     CyclingssesionDomains = new List<CyclingSession>(),
                     RunningSessionDomains = new List<RunningSession>()
                 };

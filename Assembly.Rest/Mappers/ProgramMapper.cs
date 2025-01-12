@@ -1,4 +1,5 @@
 ﻿using Assembly.Domain.Models;
+using Assembly.Rest.Dto.Input;
 using Assembly.Rest.Dto.Output;
 
 namespace Assembly.Rest.Mappers
@@ -17,8 +18,12 @@ namespace Assembly.Rest.Mappers
             };
         }
 
+        public static ProgramDomain MapProgramToDomain(ProgramInputDto program)
+        {
+            return new ProgramDomain(program.ProgramCode, program.Name, program.Target, program.Startdate, program.MaxMembers);
+        }
 
-        public static ProgramDomain MapProgramToDomain(ProgramOutputDto program)
+        public static ProgramDomain MapInputProgramToDomain(ProgramInputDto program)
         {
             return new ProgramDomain(program.ProgramCode, program.Name, program.Target, program.Startdate, program.MaxMembers);
         }

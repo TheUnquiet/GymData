@@ -9,7 +9,7 @@ namespace Assembly.Domain.Models
         public ProgramDomain(string programCode, string name, string target, DateTime startdate, int maxMembers)
         {
             SetProgramCode(programCode);
-            SetName (name);
+            SetName(name);
             SetTarget(target);
             SetStartDate(startdate);
             SetMaxMembers(maxMembers);

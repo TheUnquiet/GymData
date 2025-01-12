@@ -23,7 +23,7 @@ namespace Assembly.WPF.Models
 
         public override string ToString()
         {
-            return $"{StartTime} - {EndTime}";
+            return $"{StartTime} - {EndTime} : {PartOfDay}";
         }
     }
 }

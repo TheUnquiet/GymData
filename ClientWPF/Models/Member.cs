@@ -37,7 +37,7 @@ namespace Assembly.WPF.Models
         public List<Reservation> Reservations { get; set; } = [];
 
         [JsonPropertyName("programs")]
-        public List<Programs> Programs { get; set; } = [];
+        public List<ProgramModel> Programs { get; set; } = [];
 
         [JsonPropertyName("cyclingssesionDomains")]
         public List<CyclingSession> CyclingssesionDomains { get; set; } = [];

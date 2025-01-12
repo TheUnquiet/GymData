@@ -7,26 +7,26 @@ using System.Threading.Tasks;
 
 namespace Assembly.WPF.Models
 {
-    public class Programs
+    public class ProgramModel
     {
         [JsonPropertyName("programCode")]
-        public string ProgramCode { get; set; } = string.Empty;
+        public string ProgramCode { get; set; } = "";
 
         [JsonPropertyName("name")]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } = "";
 
         [JsonPropertyName("target")]
-        public string Target { get; set; } = string.Empty;
+        public string Target { get; set; } = "";
 
-        [JsonPropertyName("startdate")]
-        public DateTime Startdate { get; set; }
+        [JsonPropertyName("startDate")]
+        public DateTime StartDate { get; set; }
 
         [JsonPropertyName("maxMembers")]
         public int MaxMembers { get; set; }
 
         public override string ToString()
         {
-            return $"{ProgramCode} {Name} {Startdate} {Target}";
+            return $"{ProgramCode} - {Name} - {StartDate} - {Target}";
         }
     }
 }

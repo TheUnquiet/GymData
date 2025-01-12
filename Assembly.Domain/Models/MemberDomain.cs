@@ -247,6 +247,7 @@ public class MemberDomain
     {
         if (program is null) throw new MemberDomainException("Session is empty");
         if (ProgramCodes.Contains(program)) throw new MemberDomainException("Session already added");
+        program.AddMember(this);
         ProgramCodes.Add(program);
     }
 
@@ -254,6 +255,7 @@ public class MemberDomain
     {
         if (program is null) throw new MemberDomainException("Session is empty");
         if (!ProgramCodes.Contains(program)) throw new MemberDomainException("Session not found");
+        program.RemoveMember(this);
         ProgramCodes.Remove(program);
     }
 

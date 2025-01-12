@@ -14,8 +14,13 @@ namespace Assembly.Data.Mappers
         public static ProgramDomain MapToDomain(Program program)
         {
             try
-            { 
-                return new ProgramDomain(program.ProgramCode, program.Name, program.Target, program.Startdate, program.MaxMembers); 
+            {
+                return new ProgramDomain(
+                    program.ProgramCode,
+                    program.Name,
+                    program.Target,
+                    program.Startdate,
+                    program.MaxMembers);
             }
             catch (Exception ex)
             {
@@ -33,7 +38,7 @@ namespace Assembly.Data.Mappers
                     Name = domain.Name,
                     Target = domain.Target,
                     Startdate = domain.Startdate,
-                    MaxMembers = domain.MaxMembers
+                    MaxMembers = domain.MaxMembers,
                 };
             }
             catch (Exception ex)

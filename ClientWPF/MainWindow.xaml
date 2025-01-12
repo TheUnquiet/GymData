@@ -12,6 +12,7 @@
                 <Button Content="Search for a member" Margin="10" Padding="2" Click="SearchMemberById"/>
                 <Button Content="Add a new member" Margin="10" Padding="2" Click="AddMember"/>
                 <Button Content="Add a new equipment" Margin="10" Padding="2" Click="AddEquipment"/>
+                <Button Content="Add a new Program" Margin="10" Padding="2" Click="AddProgram"/>
             </StackPanel>
         </StackPanel>
     </Grid>
