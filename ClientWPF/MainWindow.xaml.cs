@@ -1,4 +1,5 @@
-﻿using Assembly.WPF.Members;
+﻿using Assembly.WPF.Equipments;
+using Assembly.WPF.Members;
 using Assembly.WPF.Reservations;
 using System.Windows;
 
@@ -25,6 +26,12 @@ namespace ClientWPF
         {
             AddMemberWindow adw = new AddMemberWindow();
             adw.Show();
+        }
+
+        private void AddEquipment(object sender, RoutedEventArgs e)
+        {
+            AddEquipmentWindow aew = new AddEquipmentWindow();
+            aew.Show();
         }
     }
 }

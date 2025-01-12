@@ -1,0 +1,23 @@
+﻿<Window x:Class="Assembly.WPF.Equipments.AllEquipmentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Assembly.WPF.Equipments"
+        mc:Ignorable="d"
+        Title="AllEquipmentWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Content="Equipment" HorizontalAlignment="Center" FontSize="16"/>
+        <ListBox Grid.Row="1" Margin="5" Name="EquipmentListBox"/>
+        <Button Grid.Row="2" Margin="5" Content="Close" Click="CloseButtonClick"/>
+    </Grid>
+</Window>

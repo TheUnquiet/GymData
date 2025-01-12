@@ -10,7 +10,7 @@
         <StackPanel VerticalAlignment="Center">
             <TextBlock Text="Fill in an id:" FontSize="16" Margin="10 0 10 0"/>
             <TextBox Name="MemberId" Margin="10 0 10 0"/>
-            <Button Content="Search for a reservation" Margin="10" Padding="2" Click="SearchMemberClick"/>
+            <Button Content="Search" Margin="10" Padding="2" Click="SearchMemberClick"/>
         </StackPanel>
     </Grid>
 </Window>

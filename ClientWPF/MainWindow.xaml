@@ -6,11 +6,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Margin="5">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="334">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="790">
             <TextBlock HorizontalAlignment="Center" Text="Gym data" FontSize="16" Margin="10"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="Search for a member" Margin="10" Padding="2" Click="SearchMemberById"/>
                 <Button Content="Add a new member" Margin="10" Padding="2" Click="AddMember"/>
+                <Button Content="Add a new equipment" Margin="10" Padding="2" Click="AddEquipment"/>
             </StackPanel>
         </StackPanel>
     </Grid>
