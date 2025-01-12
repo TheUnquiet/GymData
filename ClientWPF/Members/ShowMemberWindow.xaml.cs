@@ -1,4 +1,5 @@
 ﻿using Assembly.WPF.Models;
+using Assembly.WPF.Reservations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,16 +36,24 @@ namespace Assembly.WPF.Members
             NameLabel.Content = $"{Member.FirstName} {Member.LastName}";
             EmailLabel.Content = Member.Email;
             BirthdayLabel.Content = Member.Birthday.ToString("d");
-            IntrestLabel.Content = Member.Intrest;
+            IntrestLabel.Content = Member.Intrest ?? "No Intrest";
             MemberTypeLabel.Content = Member.MemberType;
 
             ProgramsListBox.ItemsSource = Member.Programs;
             ReservationsListBox.ItemsSource = Member.Reservations;
+            CyclingSessionsListBox.ItemsSource = Member.CyclingssesionDomains;
+            RunningSessionsListBox.ItemsSource = Member.RunningSessionDomains;
         }
 
         private void CloseWindowClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void AddReservationButtonClick(object sender, RoutedEventArgs e)
+        {
+            AddReservationWindow addReservationWindow = new AddReservationWindow(Member);
+            addReservationWindow.Show();
         }
     }
 }

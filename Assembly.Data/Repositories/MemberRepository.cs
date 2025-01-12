@@ -30,7 +30,7 @@ public class MemberRepository : IMemberRepository
         }
         catch (Exception ex)
         {
-            throw new MemberRepositoryException("GetMembers", ex);
+            throw new MemberRepositoryException($"GetMembers {ex}");
         }
     }
 
@@ -70,7 +70,7 @@ public class MemberRepository : IMemberRepository
         }
         catch (Exception ex)
         {
-            throw new MemberRepositoryException("AddMember",  ex);
+            throw new MemberRepositoryException($"AddMember {ex}");
         }
     }
 
@@ -84,7 +84,7 @@ public class MemberRepository : IMemberRepository
         }
         catch (Exception ex)
         {
-            throw new MemberRepositoryException("UpdateMember", ex);
+            throw new MemberRepositoryException($"UpdateMember {ex}");
         }
     }
 
@@ -100,7 +100,7 @@ public class MemberRepository : IMemberRepository
         }
         catch (Exception ex)
         {
-            throw new MemberRepositoryException("DeleteMember", ex);
+            throw new MemberRepositoryException($"GetMembers {ex}");
         }
     }
 

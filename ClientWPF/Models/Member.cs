@@ -9,6 +9,9 @@ namespace Assembly.WPF.Models
 {
     public class Member
     {
+        [JsonPropertyName("id")]
+        public int MemberId { get; set; }
+
         [JsonPropertyName("firstName")]
         public string FirstName { get; set; } = string.Empty;
 
@@ -22,7 +25,7 @@ namespace Assembly.WPF.Models
         public string Address { get; set; } = string.Empty;
 
         [JsonPropertyName("birthday")]
-        public DateTime Birthday { get; set; }
+        public DateOnly Birthday { get; set; }
 
         [JsonPropertyName("intrest")]
         public string? Intrest { get; set; }
@@ -35,6 +38,12 @@ namespace Assembly.WPF.Models
 
         [JsonPropertyName("programs")]
         public List<Programs> Programs { get; set; } = [];
+
+        [JsonPropertyName("cyclingssesionDomains")]
+        public List<CyclingSession> CyclingssesionDomains { get; set; } = [];
+
+        [JsonPropertyName("runningSessionDomains")]
+        public List<RunningSession> RunningSessionDomains { get; set; } = [];
 
         public override string ToString()
         {

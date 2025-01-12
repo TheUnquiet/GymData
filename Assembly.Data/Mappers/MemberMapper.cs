@@ -17,6 +17,7 @@ public static class MemberMapper
         try
         {
             var memberDomain = new MemberDomain(
+                member.MemberId,
                 member.FirstName,
                 member.LastName,
                 member.Email,

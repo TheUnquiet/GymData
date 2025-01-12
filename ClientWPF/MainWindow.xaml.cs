@@ -15,16 +15,16 @@ namespace ClientWPF
             InitializeComponent();
         }
 
-        private void AddReservationButtonClick(object sender, RoutedEventArgs e)
-        {
-            AddReservationWindow arw = new AddReservationWindow();
-            arw.Show();
-        }
-
         private void SearchMemberById(object sender, RoutedEventArgs e)
         {
             SearchMemberWindow smw = new SearchMemberWindow();
             smw.Show();
+        }
+
+        private void AddMember(object sender, RoutedEventArgs e)
+        {
+            AddMemberWindow adw = new AddMemberWindow();
+            adw.Show();
         }
     }
 }

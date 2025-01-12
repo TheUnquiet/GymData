@@ -50,7 +50,7 @@ namespace Assembly.Domain.Managers
             }
             catch (Exception ex)
             {
-                throw new MemberManagerException("AddMember", ex);
+                throw new MemberManagerException($"AddMember {ex}");
             }
         }
 

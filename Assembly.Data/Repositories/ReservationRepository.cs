@@ -45,8 +45,8 @@ namespace Assembly.Data.Repositories
                    .FirstOrDefaultAsync();
 
                 var reservationTimeSlotEquipments = await _context.ReservationTimeSlotEquipments
-            .Where(rts => rts.ReservationId == id)
-            .ToListAsync();
+                    .Where(rts => rts.ReservationId == id)
+                    .ToListAsync();
 
                 var timeSlots = await _context.TimeSlots
                     .Where(ts => reservationTimeSlotEquipments.Select(rts => rts.TimeSlotId).Contains(ts.TimeSlotId))
@@ -144,10 +144,11 @@ namespace Assembly.Data.Repositories
             try
             {
                 // Ensure no other reservation exists with the same date and timeslot
-                var conflictingReservation = await _context.Reservations
-                    .Where(r => r.Date == reservation.Date &&
-                                r.ReservationTimeSlotEquipments.Any(rts => reservation.TimeSlots.Any(ts => ts.TimeSlotId == rts.TimeSlotId)))
-                    .FirstOrDefaultAsync();
+                var conflictingReservation = _context.Reservations
+                    .Where(r => r.Date == reservation.Date)
+                    .AsEnumerable()
+                    .FirstOrDefault(r => r.ReservationTimeSlotEquipments
+                        .Any(rts => reservation.TimeSlots.Any(ts => ts.TimeSlotId == rts.TimeSlotId)));
 
                 if (conflictingReservation != null)
                 {

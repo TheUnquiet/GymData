@@ -12,6 +12,9 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -40,6 +43,13 @@
         <Label Grid.Row="1" Grid.Column="3" Content="Reservations:" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
         <ListBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" Margin="5" Name="ReservationsListBox"/>
 
-        <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="6" Margin="5" Content="Close" Click="CloseWindowClick"/>
+        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="RunningSessions:" HorizontalAlignment="Center"/>
+        <ListBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="5" Name="RunningSessionsListBox"/>
+
+        <Label Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Content="CyclingSessions:" HorizontalAlignment="Center"/>
+        <ListBox Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" Margin="5" Name="CyclingSessionsListBox"/>
+
+        <Button Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="6" Margin="5" Content="Add a reservation for this user" Click="AddReservationButtonClick"/>
+        <Button Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="6" Margin="5" Content="Close" Click="CloseWindowClick"/>
     </Grid>
 </Window>

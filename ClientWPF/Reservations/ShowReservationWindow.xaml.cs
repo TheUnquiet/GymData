@@ -28,7 +28,7 @@ namespace Assembly.WPF.Reservations
             _reservation = reservation;
             ReservationId.Text = _reservation.Id.ToString();
             ReservationDate.Text = _reservation.ReservationDate.ToString("yyyy-MM-dd");
-            ReservationMember.Text = _reservation.Member.ToString();
+            ReservationMember.Text = _reservation.MemberId.ToString();
             TimeSlotListBox.ItemsSource = _reservation.TimeSlots;
             EquipmentListBox.ItemsSource = _reservation.Equipment;
         }

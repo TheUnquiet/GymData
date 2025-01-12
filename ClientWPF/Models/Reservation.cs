@@ -14,8 +14,8 @@ namespace Assembly.WPF.Models
         [JsonPropertyName("reservationDate")]
         public DateOnly ReservationDate { get; set; }
 
-        [JsonPropertyName("memberOutputDto")]
-        public Member Member { get; set; } = null!;
+        [JsonPropertyName("memberId")]
+        public int MemberId { get; set; }
 
         [JsonPropertyName("timeSlots")]
         public List<TimeSlot> TimeSlots { get; set; } = new List<TimeSlot>();

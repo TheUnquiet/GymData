@@ -4,6 +4,8 @@ namespace Assembly.Rest.Dto.Output
 {
     public class MemberOutputDto
     {
+        public int Id { get; set; }
+
         public string FirstName { get; set; } = string.Empty;
         
         public string LastName { get; set; } = string.Empty;

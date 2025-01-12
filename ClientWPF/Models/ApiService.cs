@@ -60,5 +60,11 @@ namespace Assembly.WPF.Models
             var jsonContent = new StringContent(JsonSerializer.Serialize(reservation), Encoding.UTF8, "application/json");
             return await _httpClient.PostAsync("Reservation", jsonContent);
         }
+
+        public async Task<HttpResponseMessage> CreateMember(Member member)
+        {
+            var jsonContent = new StringContent(JsonSerializer.Serialize(member), Encoding.UTF8, "application/json");
+            return await _httpClient.PostAsync("Member", jsonContent);
+        }   
     }
 }
